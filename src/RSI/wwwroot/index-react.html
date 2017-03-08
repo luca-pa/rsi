@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSI</title>
+
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="lib/c3/c3.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css" />
+
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="lib/d3/d3.v3.js"></script>
+    <script src="lib/c3/c3.js"></script>
+    <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a ui-sref="index" class="navbar-brand">RSI</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a ui-sref="ranking" ui-sref-active="active">Ranking</a></li>
+                    <li><a ui-sref="charts">Charts</a></li>
+                    <li><a ui-sref="all">All</a></li>
+                    <li><a ui-sref="portfolio" ui-sref-active="active">Portafoglio</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div id="container"></div>
+    </div>
+
+    <script src="app/react/app.js"></script>
+</body>
+</html>

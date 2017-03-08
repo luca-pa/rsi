@@ -1,0 +1,58 @@
+﻿@model RSI.ViewModels.RankingViewModel
+<style>
+    .nontradable {
+        color: red;
+    }
+    .owned {
+        background-color: blanchedalmond !important;
+    }
+    .margine-sinistro{
+        margin-left: 100px;
+    }
+</style>
+
+<div class="container">
+    <h2>@Model.Title</h2>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                @Html.ActionLink("<< " + Model.MeseAnnoPrecedente, Model.Action, new { DataRiferimento = Model.DataRiferimento.AddMonths(-1) }, new { @class = "btn btn-default navbar-btn navbar-left" })
+                <p class="navbar-text">@Model.MeseAnnoCorrente</p>
+                @Html.ActionLink("Aggiorna Quote", "AggiornaQuoteSelezione", new { Model.DataRiferimento }, new { @class = "btn btn-default navbar-btn navbar-right margine-sinistro" })
+                @Html.ActionLink(Model.MeseAnnoSuccessivo + " >>", Model.Action, new { DataRiferimento = Model.DataRiferimento.AddMonths(1) }, new { @class = "btn btn-default navbar-btn navbar-right" })
+            </div>
+        </div>
+    </nav>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Posizione</th>
+                <th>Ticker</th>
+                <th>ETF</th>
+                <th>Media 1-12 mesi</th>
+                <th>Volumi</th>
+                <th>Total return 1 mese</th>
+                <th>Total return 3 mesi</th>
+                <th>Total return 6 mesi</th>
+                <th>Total return 12 mesi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var etf in Model.Etfs)
+            {
+                <tr class="@etf.LineStyle">
+                    <td>@etf.Posizione</td>
+                    <td>@etf.Ticker</td>
+                    <td>@etf.Nome</td>
+                    <td>@etf.Media</td>
+                    <td>@etf.Volume</td>
+                    <td>@etf.TotRet1</td>
+                    <td>@etf.TotRet3</td>
+                    <td>@etf.TotRet6</td>
+                    <td>@etf.TotRet12</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

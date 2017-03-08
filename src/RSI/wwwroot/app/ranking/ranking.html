@@ -1,0 +1,67 @@
+﻿
+<div class="container">
+    <h2>{{::title}}</h2>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a ng-click="ranking(dataPrecedente)" class = "btn btn-default navbar-btn navbar-left"><< {{meseAnnoPrecedente()}}</a>
+                <p class="navbar-text">{{meseAnnoCorrente()}}</p>
+                <a ng-click="ranking(dataSuccessiva)" class="btn btn-default navbar-btn navbar-left">{{meseAnnoSuccessivo()}} >></a>
+                <div class="navbar-right margine-sinistro">
+                    <div ng-hide="all">
+                        <a class="btn btn-default navbar-btn" ng-click="aggiornaQuote()" >Aggiorna Quote{{quoteAggiornate}}</a>
+                        <a class="btn btn-default navbar-btn" ng-click="aggiornaQuoteMeseSuccessivo()">Aggiorna Quote Mese Pross.{{quoteAggiornateMeseSuccessivo}}</a>
+                        <a class="btn btn-info navbar-btn margine-sinistro" target="_blank" href="{{tabellaTraderLinkUrl}}">Tabella TraderLink</a>
+                    </div>
+                    <div ng-show="all" style="margin-top: 12px">
+                        <label>
+                            Include Shorts: <input type="checkbox" ng-model="shorts" ng-change="ranking()" />
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="row" ng-show="loading">
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+            <img ng-show="loading" src="images/spinner.gif" />
+        </div>
+    </div>
+    <table class="table table-bordered table-striped table-hover" ng-hide="loading">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Ticker</th>
+                <th>ETF</th>
+                <th>Avg 1/12M</th>
+                <th>Volumi</th>
+                <th>TR 1M</th>
+                <th>TR 3M</th>
+                <th>TR 6M</th>
+                <th>TR 12M</th>
+                <th>Prezzo</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="etf in etfs" class="{{etf.lineStyle}}">
+                <td ng-bind="etf.posizione"></td>
+                <td><a href="{{etf.url}}" target="_new">{{etf.ticker}}</a></td>
+                <td>{{etf.nome}}</td>
+                <td>{{etf.media}}</td>
+                <td>{{etf.volume}}</td>
+                <td>{{etf.totRet1}}</td>
+                <td>{{etf.totRet3}}</td>
+                <td>{{etf.totRet6}}</td>
+                <td>{{etf.totRet12}}</td>
+                <td>{{etf.prezzo}}</td>
+                <td>
+                    <a ng-click="addToSelection(etf)" ng-show="all" class="btn btn-default">+</a>
+                    <a ng-click="removeFromSelection(etf)" ng-show="selection" class="btn btn-default">-</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

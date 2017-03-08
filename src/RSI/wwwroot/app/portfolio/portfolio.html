@@ -1,0 +1,236 @@
+﻿
+<div class="container" ng-controller="portfolioCtrl">
+    <h2>Portafoglio</h2>
+
+    <div class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-2">
+            <a class="btn btn-info pull-right" target="_blank" href="{{tabellaTraderLinkUrl}}">Tabella TraderLink</a>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-default pull-right" ng-click="load()">Aggiorna</a>
+        </div>
+    </div>
+    <br />
+    <div class="row" ng-show="loading">
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+            <img ng-show="loading" src="images/spinner.gif" />
+        </div>
+    </div>
+    <table class="table table-bordered table-striped table-hover" ng-hide="loading">
+        <thead>
+            <tr>
+                <th colspan="3"></th>
+                <th>Quantità</th>
+                <th>Prezzo acquisto</th>
+                <th>Importo acquisto</th>
+                <th>Prezzo corrente</th>
+                <th>% d</th>
+                <th>Importo corrente</th>
+                <th>Differenza</th>
+                <th>%</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in portfolio.items">
+                <td>{{item.data}}</td>
+                <td><a href="{{item.url}}" target="_new">{{item.ticker}}</a></td>
+                <td>{{item.nome}}</td>
+                <td class="rightalign">{{item.quantita}}</td>
+                <td class="rightalign">{{item.prezzoAcquisto}}</td>
+                <td class="rightalign">{{item.importoAcquisto}}</td>
+                <td class="rightalign">{{item.prezzoCorrente}}</td>
+                <td class="rightalign">{{item.variazione}}</td>
+                <td class="rightalign">{{item.importoCorrenteNetto}}</td>
+                <td class="rightalign">{{item.guadagno}}</td>
+                <td class="rightalign">{{item.guadagnoPercentuale}}</td>
+                <td>
+                    <a class="btn btn-default" data-toggle="modal" data-target="#{{item.ticker}}-portfolio">...</a>
+
+                    <div id="{{item.ticker}}-portfolio" class="modal fade in" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close" data-dismiss="modal">×</a>
+                                    <h4 class="modal-title">{{item.ticker}} - {{item.nome}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="{{item.ticker}}-form" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-sm-2">{{item.data}}</div>
+                                            <div class="col-sm-2">{{item.quantita}}</div>
+                                            <div class="col-sm-2">{{item.prezzoAcquisto}}</div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label for="datavendita" class="control-label">Data vendita</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="datavendita" class="input-sm form-control" ng-model="item.dataVendita">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label for="prezzovendita" class="control-label">Prezzo vendita</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" id="prezzovendita" class="input-sm form-control" ng-model="item.prezzoVendita">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label for="dividendi" class="control-label">Dividendi</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="dividendi" class="input-sm form-control" ng-model="item.dividendi">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <input class="btn btn-success" value="Salva" data-dismiss="modal" ng-click="savePortfolioItem(item)">
+                                    <a href="#" class="btn" data-dismiss="modal">Annulla</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <a class="btn btn-default" data-toggle="modal" data-target="#newportfolio">+</a>
+
+                    <div id="newportfolio" class="modal fade in" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close" data-dismiss="modal">×</a>
+                                    <h4 class="modal-title">Aggiungi nuovo titolo</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="newitemform" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label for="data" class="control-label">Data</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="data" class="input-sm form-control" ng-model="newItem.data">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label for="ticker" class="control-label">Ticker</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="ticker" class="input-sm form-control" ng-model="newItem.ticker">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label for="prezzo" class="control-label">Prezzo</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="prezzo" class="input-sm form-control" ng-model="newItem.prezzoAcquisto">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label for="quantita" class="control-label">Quantità</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="quantita" class="input-sm form-control" ng-model="newItem.quantita">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <input class="btn btn-success" value="Salva" data-dismiss="modal" ng-click="addPortfolioItem()">
+                                    <a href="#" class="btn" data-dismiss="modal">Annulla</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+                <td class="rightalign">{{portfolio.totaleAcquisto}}</td>
+                <td></td>
+                <td class="rightalign">{{portfolio.variazione}}</td>
+                <td class="rightalign">{{portfolio.totaleCorrente}}</td>
+                <td class="rightalign">{{portfolio.guadagno}}</td>
+                <td class="rightalign">{{portfolio.guadagnoPercentuale}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="12"></td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="3">Totale investito</td>
+                <td class="rightalign">{{portfolio.totaleInvestito}}</td>
+                <td colspan="2">(Cash: {{portfolio.cash}})</td>
+                <td class="rightalign">{{portfolio.totaleComplessivo}}</td>
+                <td class="rightalign">{{portfolio.guadagnoTotale}}</td>
+                <td class="rightalign">{{portfolio.guadagnoTotalePercentuale}}</td>
+                <td>
+                    <a class="btn btn-default" data-toggle="modal" data-target="#bilancio">...</a>
+
+                    <div id="bilancio" class="modal fade in" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close" data-dismiss="modal">×</a>
+                                    <h4 class="modal-title">Bilancio</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="newitemform" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label for="databilancio" class="control-label">Data</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="databilancio" class="input-sm form-control" ng-model="portfolio.dataBilancio">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label for="investito" class="control-label">Investito</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="cash" class="input-sm form-control" ng-model="portfolio.totaleInvestito">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label for="cash" class="control-label">Cash</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="cash" class="input-sm form-control" ng-model="portfolio.cash">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label for="minusvalenze" class="control-label">Minusvalenze</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="minusvalenze" class="input-sm form-control" ng-model="portfolio.minusvalenze">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <input class="btn btn-success" value="Salva" data-dismiss="modal" ng-click="saveBilancio()">
+                                    <a href="#" class="btn" data-dismiss="modal">Annulla</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

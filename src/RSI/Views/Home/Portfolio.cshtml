@@ -1,0 +1,53 @@
+﻿@model RSI.ViewModels.PortafoglioViewModel
+
+<div class="container">
+    <h2>Portafoglio</h2>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Quantità</th>
+                <th>Prezzo acquisto</th>
+                <th>Importo acquisto</th>
+                <th>Prezzo corrente</th>
+                <th>% d</th>
+                <th>Importo corrente</th>
+                <th>Differenza</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Data</td>
+                    <td>@item.Ticker</td>
+                    <td>@item.Nome</td>
+                    <td>@item.Quantita</td>
+                    <td>@item.PrezzoAcquisto</td>
+                    <td>@item.ImportoAcquisto</td>
+                    <td>@item.PrezzoCorrente</td>
+                    <td>@item.Variazione</td>
+                    <td>@item.ImportoCorrente</td>
+                    <td>@item.Guadagno</td>
+                    <td>@item.GuadagnoPercentuale</td>
+                </tr>
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>@Model.TotaleAcquisto</td>
+                <td></td>
+                <td></td>
+                <td>@Model.TotaleCorrente</td>
+                <td>@Model.Guadagno</td>
+                <td>@Model.GuadagnoPercentuale</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

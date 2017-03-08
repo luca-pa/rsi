@@ -1,0 +1,50 @@
+﻿@model RSI.Models.Ranking
+@{
+    Layout = null;
+}
+
+@foreach (var etf in Model.Etfs.OrderByDescending(e => e.MediaTotRet).ToList())
+{
+    <div class="title"><h4>@etf.Nome</h4></div>
+    <div id="chart-@etf.Ticker"></div>
+}
+
+<script>
+
+@foreach (var etf in Model.Etfs)
+{
+    <text>
+    c3.generate({
+        bindto: '#chart-@etf.Ticker',
+        data: {
+            x: 'x',
+            columns: [
+                    ['x' @for(var i = 13; i >= 1; i--) {
+                                    @:, '@Model.DataRiferimento.AddMonths(-i).ToString("yyyy-MM-01")'
+                                    }],
+                    ['sma' @for(var i = 13; i >= 1; i--) {
+                                        @:,@etf.Sma10Mesi(i).Value.ToString().Replace(",", ".")
+                                    }],
+                    ['@etf.Ticker' @for(var i = 13; i >= 1; i--) {
+                                                @:,@etf.QuotaMese(i).Value.ToString().Replace(",", ".")
+                                                    }]
+            ]
+        },
+        axis: {
+            x: {
+                type: 'timeseries',
+                tick: {
+                    format: '%m-%Y'
+                }
+            }
+        }
+
+    });
+    </text>
+}
+
+    //$("#loading").toggle();
+    //$(".title").toggle();
+
+</script>
+
