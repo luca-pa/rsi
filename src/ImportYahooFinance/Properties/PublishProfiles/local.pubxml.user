@@ -8,4 +8,9 @@ modificando il file MSBuild. Per ulteriori informazioni su questo argomento, vis
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>C:\code\ImportYahooFinance</_PublishTargetUrl>
   </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.json">
+      <publishTime>03/10/2017 11:59:02</publishTime>
+    </File>
+  </ItemGroup>
 </Project>

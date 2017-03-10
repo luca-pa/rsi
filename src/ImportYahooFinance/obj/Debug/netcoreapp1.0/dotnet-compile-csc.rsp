@@ -7,8 +7,8 @@
 -debug:full
 -nostdlib
 -nologo
-"C:\Users\luca\Documents\Visual Studio 2015\Projects\ImportYahooFinance\src\ImportYahooFinance\obj\Debug\netcoreapp1.0\dotnet-compile.assemblyinfo.cs"
--out:"C:\Users\luca\Documents\Visual Studio 2015\Projects\ImportYahooFinance\src\ImportYahooFinance\bin\Debug\netcoreapp1.0\ImportYahooFinance.dll"
+"C:\Users\luca\Source\Repos\rsi\src\ImportYahooFinance\obj\Debug\netcoreapp1.0\dotnet-compile.assemblyinfo.cs"
+-out:"C:\Users\luca\Source\Repos\rsi\src\ImportYahooFinance\bin\Debug\netcoreapp1.0\ImportYahooFinance.dll"
 -r:"C:\Users\luca\.nuget\packages\Microsoft.CSharp\4.0.1\ref\netstandard1.0\Microsoft.CSharp.dll"
 -r:"C:\Users\luca\.nuget\packages\Microsoft.EntityFrameworkCore\1.0.0\lib\netstandard1.3\Microsoft.EntityFrameworkCore.dll"
 -r:"C:\Users\luca\.nuget\packages\Microsoft.EntityFrameworkCore.Relational\1.0.0\lib\netstandard1.3\Microsoft.EntityFrameworkCore.Relational.dll"
@@ -97,8 +97,8 @@
 -r:"C:\Users\luca\.nuget\packages\System.Threading.Timer\4.0.1\ref\netstandard1.2\System.Threading.Timer.dll"
 -r:"C:\Users\luca\.nuget\packages\System.Xml.ReaderWriter\4.0.11\ref\netstandard1.3\System.Xml.ReaderWriter.dll"
 -r:"C:\Users\luca\.nuget\packages\System.Xml.XDocument\4.0.11\ref\netstandard1.3\System.Xml.XDocument.dll"
-"C:\Users\luca\Documents\Visual Studio 2015\Projects\ImportYahooFinance\src\ImportYahooFinance\Etf.cs"
-"C:\Users\luca\Documents\Visual Studio 2015\Projects\ImportYahooFinance\src\ImportYahooFinance\Program.cs"
-"C:\Users\luca\Documents\Visual Studio 2015\Projects\ImportYahooFinance\src\ImportYahooFinance\Quota.cs"
-"C:\Users\luca\Documents\Visual Studio 2015\Projects\ImportYahooFinance\src\ImportYahooFinance\TradingContext.cs"
-"C:\Users\luca\Documents\Visual Studio 2015\Projects\ImportYahooFinance\src\ImportYahooFinance\Properties\AssemblyInfo.cs"
+"C:\Users\luca\Source\Repos\rsi\src\ImportYahooFinance\Etf.cs"
+"C:\Users\luca\Source\Repos\rsi\src\ImportYahooFinance\Program.cs"
+"C:\Users\luca\Source\Repos\rsi\src\ImportYahooFinance\Quota.cs"
+"C:\Users\luca\Source\Repos\rsi\src\ImportYahooFinance\TradingContext.cs"
+"C:\Users\luca\Source\Repos\rsi\src\ImportYahooFinance\Properties\AssemblyInfo.cs"
