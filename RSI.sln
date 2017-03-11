@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EDED6076-5272-41B2-9AF1-171277EC3610}"
 EndProject
@@ -11,13 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WebEssentials2015-Settings.json = WebEssentials2015-Settings.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RSI.Web", "src\RSI\RSI.Web.xproj", "{4B386CE0-B749-4FDC-A592-99F6D00EE292}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSI.Web", "src\RSI\RSI.Web.csproj", "{4B386CE0-B749-4FDC-A592-99F6D00EE292}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ImportYahooFinance", "src\ImportYahooFinance\ImportYahooFinance.xproj", "{190CEA60-3E40-46A3-9780-F7916AA4B4B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImportYahooFinance", "src\ImportYahooFinance\ImportYahooFinance.csproj", "{190CEA60-3E40-46A3-9780-F7916AA4B4B3}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RSI.Models", "src\RSI.Models\RSI.Models.xproj", "{3FE5F9A2-3440-4E98-AAE4-231A7CD374DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSI.Models", "src\RSI.Models\RSI.Models.csproj", "{3FE5F9A2-3440-4E98-AAE4-231A7CD374DC}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RSI.Repositories", "src\RSI.Repositories\RSI.Repositories.xproj", "{A665D6C4-A608-4B59-AD19-88C7E58C57E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSI.Repositories", "src\RSI.Repositories\RSI.Repositories.csproj", "{A665D6C4-A608-4B59-AD19-88C7E58C57E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

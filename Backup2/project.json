@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+
+  "dependencies": {
+    "Microsoft.NETCore.App": "1.1.1",
+    "RSI.Models": "1.0.0-*",
+    "RSI.Repositories": "1.0.0-*",
+    "System.Net.Http": "4.3.1"
+  },
+
+  "frameworks": {
+    "netcoreapp1.1": {
+      "imports": "dnxcore50"
+    }
+  },
+
+  "runtimes": {
+    "win10-x64": {}
+  }
+}
