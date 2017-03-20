@@ -7,21 +7,29 @@ namespace RSI.Controllers
     public class QuotesController : Controller
     {
         private readonly IEtfService _etfService;
-        public QuotesController(IEtfService etfService)
+        private readonly IPortfolioService _portfolioService;
+        public QuotesController(IEtfService etfService, IPortfolioService portfolioService)
         {
             _etfService = etfService;
+            _portfolioService = portfolioService;
+        }
+
+        [HttpGet()]
+        public int Get()
+        {
+            return _etfService.AggiornaQuoteSelezione();
         }
 
         [HttpGet("{all}")]
-        public int Get(bool all = false)
+        public int Get(bool all = true)
         {
-            if (all)
-            {
-                return _etfService.AggiornaQuoteMeseSuccessivo();
-            }
+            return _etfService.AggiornaQuoteMeseSuccessivo();
+        }
 
-            return _etfService.AggiornaQuoteSelezione();
-
+        [HttpGet("{all}/{portfolio}")]
+        public int Get(bool all = false, bool portfolio = true)
+        {
+            return _portfolioService.AggiornaQuotePortfolio();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using RSI.Models;
 using RSI.Repositories;
+using System;
 using System.Linq;
 
 namespace RSI.Services
@@ -68,6 +69,21 @@ namespace RSI.Services
             {
                 _portfolioRepository.AggiornaBilancio(bilancio);
             }
+        }
+
+        public int AggiornaQuotePortfolio()
+        {
+            int counter = 0;
+
+            _portfolioRepository.GetAllPortafoglioItems()
+                .ToList()
+                .ForEach(p =>
+                {
+                    var quote = _yahooService.GetQuotes(p.Ticker, p.Data, p.DataVendita ?? DateTime.Now.Date);
+                    counter += _portfolioRepository.AggiornaQuotePortafoglio(p.Ticker, quote);
+                });
+
+            return counter;
         }
 
 

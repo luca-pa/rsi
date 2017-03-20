@@ -1,4 +1,5 @@
 ﻿using RSI.Models;
+using System;
 using System.Collections.Generic;
 
 namespace RSI.Services
@@ -6,6 +7,6 @@ namespace RSI.Services
     public interface IYahooService
     {
         List<Quota> GetCurrentQuotes(IEnumerable<string> tickers);
-        List<Quota> GetHistory(string ticker);
+        List<QuotaPortafoglio> GetQuotes(string ticker, DateTime startDate, DateTime endDate);
     }
 }

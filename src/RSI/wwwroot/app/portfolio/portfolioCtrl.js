@@ -42,6 +42,15 @@
         });
     };
 
+    $scope.UpdatePortfolioQuotes = function () {
+        $scope.loading = true;
+
+        tradingSvc.UpdatePortfolioQuotes().success(function (data) {
+            $scope.load();
+            $scope.quoteAggiornate = ' (' + data + ')';
+        })
+    };
+
     function getNewItem() {
         return {
             data: tradingSvc.getDataLocaleString(new Date()),

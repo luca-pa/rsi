@@ -8,6 +8,7 @@ namespace RSI.Repositories
         const string connectionString = @"server=(local)\sqlexpress;database=Trading;trusted_connection=true;";
 
         public DbSet<Quota> Quote { get; set; }
+        public DbSet<QuotaPortafoglio> QuotePortafoglio { get; set; }
         public DbSet<Etf> Etfs { get; set; }
         public DbSet<Selezione> Selezione { get; set; }
         public DbSet<PortafoglioItem> PortafoglioItems { get; set; }
@@ -69,6 +70,12 @@ namespace RSI.Repositories
                     .HasColumnName("Ticker");
                 t.Ignore(s => s.PrezzoCorrente);
                 t.Ignore(s => s.Variazione);
+            });
+
+            modelBuilder.Entity<QuotaPortafoglio>(t =>
+            {
+                t.ToTable("QuotePortafoglio")
+                    .HasKey(q => new { q.Ticker, q.Data });
             });
 
             modelBuilder.Entity<Bilancio>(t =>

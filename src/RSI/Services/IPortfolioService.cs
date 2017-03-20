@@ -8,5 +8,6 @@ namespace RSI.Services
         void UpdatePortafoglioItem(PortafoglioItem item);
         void AddPortafoglioItem(PortafoglioItem item);
         void AggiornaBilancio(Bilancio bilancio);
+        int AggiornaQuotePortfolio();
     }
 }

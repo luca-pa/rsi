@@ -9,5 +9,6 @@ namespace RSI.Repositories
         int Add(Quota quota);
         int Update(Quota quotaEsistente);
         int AggiornaQuoteMeseSuccessivo();
+        int AggiornaQuotePortfolio();
     }
 }

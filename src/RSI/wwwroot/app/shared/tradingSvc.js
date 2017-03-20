@@ -2,44 +2,37 @@
 
     return {
         ranking: function (datarif) {
-            var url = 'api/ranking/' + this.getDataString(datarif);
-            return $http.get(url);
+            return $http.get('api/ranking/' + this.getDataString(datarif));
         },
         all: function (datarif, shorts, distributions) {
-            var url = 'api/allranking/' + this.getDataString(datarif) + '/' + shorts + '/' + distributions;
-            return $http.get(url);
+            return $http.get('api/allranking/' + this.getDataString(datarif) + '/' + shorts + '/' + distributions);
         },
         portfolio: function () {
-            var url = 'api/portfolio/';
-            return $http.get(url);
+            return $http.get('api/portfolio/');
         },
         savePortfolioItem: function (item) {
-            var url = 'api/portfolio/';
-            return $http.post(url, JSON.stringify(item), { contentType: "application/json" });
+            return $http.post('api/portfolio/', JSON.stringify(item), { contentType: "application/json" });
         },
         saveBilancio: function (bilancio) {
-            var url = 'api/bilancio';
-            return $http.post(url, JSON.stringify(bilancio), { contentType: "application/json" });
+            return $http.post('api/bilancio', JSON.stringify(bilancio), { contentType: "application/json" });
         },
         charts: function () {
-            var url = 'api/charts/';
-            return $http.get(url);
+            return $http.get('api/charts/');
         },
         updateQuotes: function () {
-            var url = 'api/quotes/false';
-            return $http.get(url);
+            return $http.get('api/quotes/false');
         },
         updateQuotesNextMonth: function () {
-            var url = 'api/quotes/true';
-            return $http.get(url);
+            return $http.get('api/quotes/true');
+        },
+        UpdatePortfolioQuotes: function () {
+            return $http.get('api/quotes/false/true');
         },
         removeFromSelection: function (ticker) {
-            var url = 'api/ranking/' + ticker;
-            return $http.delete(url);
+            return $http.delete('api/ranking/' + ticker);
         },
         addToSelection: function (ticker) {
-            var url = 'api/ranking/' + ticker;
-            return $http.put(url);
+            return $http.put('api/ranking/' + ticker);
         },
         getDataString: function (datarif) {
             if (datarif !== null) {

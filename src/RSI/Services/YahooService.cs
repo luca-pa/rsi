@@ -23,7 +23,7 @@ namespace RSI.Services
                 marketOpen = true;
                 url = url.Replace("f=sl1p2p", "f=sbk2p");
             }
-
+             
 
             var quote = new List<Quota>();
 
@@ -57,15 +57,12 @@ namespace RSI.Services
             return quote;
         }
 
-        public List<Quota> GetHistory(string ticker)
+        public List<QuotaPortafoglio> GetQuotes(string ticker, DateTime startDate, DateTime endDate)
         {
-            var endDate = DateTime.Now;
-            var startDate = endDate.AddMonths(-26);
-
             string url = $"http://real-chart.finance.yahoo.com/table.csv?s={ticker}.MI";
-            url += $"&a={startDate.Month - 1}&b={startDate.Day}&c={startDate.Year}&d={endDate.Month - 1}&e={endDate.Day}&f={endDate.Year}&g=m&ignore=.csv";
+            url += $"&a={startDate.Month - 1}&b={startDate.Day}&c={startDate.Year}&d={endDate.Month - 1}&e={endDate.Day}&f={endDate.Year}&g=d&ignore=.csv";
 
-            var quote = new List<Quota>();
+            var quote = new List<QuotaPortafoglio>();
 
             var csvData = GetData(url);
             if (csvData != null)
@@ -80,14 +77,12 @@ namespace RSI.Services
                         continue;
 
                     var chiusura = decimal.Parse(values[6].Replace(".", ","));
-                    var volumi = int.Parse(values[5]);
 
-                    quote.Add(new Quota
+                    quote.Add(new QuotaPortafoglio
                     {
                         Ticker = ticker.Trim(),
                         Data = data,
-                        Chiusura = chiusura,
-                        Volumi = volumi
+                        Chiusura = chiusura
                     });
 
                 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RSI.Models;
 using System.Linq;
+using System;
+using System.Collections.Generic;
 
 namespace RSI.Repositories
 {
@@ -27,6 +29,11 @@ namespace RSI.Repositories
             return _tradingContext.PortafoglioItems.Where(i => i.Ticker == ticker);
         }
 
+        public IQueryable<PortafoglioItem> GetAllPortafoglioItems()
+        {
+            return _tradingContext.PortafoglioItems;
+        }
+
         public void AddPortafoglioItem(PortafoglioItem item)
         {
             if (_tradingContext.Etfs.Any(e => e.Ticker == item.Ticker))
@@ -47,6 +54,19 @@ namespace RSI.Repositories
                 _tradingContext.Bilancio.Add(bilancio);
             }
             Save();
+        }
+
+        public int AggiornaQuotePortafoglio(string ticker, List<QuotaPortafoglio> quote)
+        {
+            var quoteEsistenti = _tradingContext.QuotePortafoglio.Where(q => q.Ticker == ticker).ToList();
+            foreach(var quota in quote)
+            {
+                if(!quoteEsistenti.Any(q=>q.Ticker==quota.Ticker && q.Data==quota.Data))
+                {
+                    _tradingContext.QuotePortafoglio.Add(quota);
+                }
+            }
+            return _tradingContext.SaveChanges();
         }
 
         public void Save()
