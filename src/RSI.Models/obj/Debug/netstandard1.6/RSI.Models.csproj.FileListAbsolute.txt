@@ -1,7 +1,0 @@
-C:\Users\luca\Source\Repos\rsi\src\RSI.Models\bin\Debug\netstandard1.6\RSI.Models.deps.json
-C:\Users\luca\Source\Repos\rsi\src\RSI.Models\bin\Debug\netstandard1.6\RSI.Models.dll
-C:\Users\luca\Source\Repos\rsi\src\RSI.Models\bin\Debug\netstandard1.6\RSI.Models.pdb
-C:\Users\luca\Source\Repos\rsi\src\RSI.Models\obj\Debug\netstandard1.6\RSI.Models.csprojResolveAssemblyReference.cache
-C:\Users\luca\Source\Repos\rsi\src\RSI.Models\obj\Debug\netstandard1.6\RSI.Models.AssemblyInfo.cs
-C:\Users\luca\Source\Repos\rsi\src\RSI.Models\obj\Debug\netstandard1.6\RSI.Models.dll
-C:\Users\luca\Source\Repos\rsi\src\RSI.Models\obj\Debug\netstandard1.6\RSI.Models.pdb
