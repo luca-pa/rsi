@@ -26,8 +26,14 @@ namespace RSI.Controllers
         [HttpGet("{data}/{shorts}")]
         public IEnumerable<EtfDisplay> Get(DateTime data, bool shorts)
         {
+            return Get(DateTime.Now, false, false);
+        }
+
+        [HttpGet("{data}/{shorts}/{distributions}")]
+        public IEnumerable<EtfDisplay> Get(DateTime data, bool shorts, bool distributions)
+        {
             int index = 0;
-            var ranking = _rankingService.GetAll(data, shorts);
+            var ranking = _rankingService.GetAll(data, shorts, distributions);
             return ranking.Etfs
                 .OrderByDescending(e => e.MediaTotRet)
                 .Select(e => new EtfDisplay(++index, e));

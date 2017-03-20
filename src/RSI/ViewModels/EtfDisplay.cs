@@ -1,5 +1,4 @@
-﻿
-using RSI.Models;
+﻿using RSI.Models;
 
 namespace RSI.ViewModels
 {
@@ -19,6 +18,7 @@ namespace RSI.ViewModels
         public string TotRet6 { get; set; }
         public string TotRet12 { get; set; }
         public string Prezzo { get; set; }
+        public string Distribuzione { get; set; }
 
         public EtfDisplay(int posizione, RankedEtf etf)
         {
@@ -35,6 +35,7 @@ namespace RSI.ViewModels
             TotRet6 = etf.TotRet6?.ToString("P2");
             TotRet12 = etf.TotRet12?.ToString("P2");
             Prezzo = etf.PrezzoCorrente?.ToString("N4");
+            Distribuzione = etf.Distribuzione ? "D" : "A";
         }
     }
 }

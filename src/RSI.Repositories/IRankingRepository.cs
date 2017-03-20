@@ -7,7 +7,7 @@ namespace RSI.Repositories
     public interface IRankingRepository
     {
         IEnumerable<RankedEtf> GetSelezione(DateTime? dataRiferimento);
-        IEnumerable<RankedEtf> GetAll(DateTime? dataRiferimento, bool getShorts);
+        IEnumerable<RankedEtf> GetAll(DateTime? dataRiferimento, bool getShorts, bool getDistribution);
         void RemoveFromSelection(string ticker);
         void AddToSelection(string ticker);
     }

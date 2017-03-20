@@ -7,7 +7,7 @@
         if (datarif == null) {
             datarif = rankingSvc.addMonths(new Date(), 1);
         }
-        tradingSvc.all(datarif, $scope.shorts).success(function (data) {
+        tradingSvc.all(datarif, $scope.shorts, $scope.distributions).success(function (data) {
             $scope.etfs = data;
             $scope.dataRif = datarif;
             $scope.dataPrecedente = rankingSvc.addMonths(datarif, -1);
@@ -19,6 +19,7 @@
     $scope.title = 'Ranking (All ETFs)';
     $scope.all = true;
     $scope.shorts = false;
+    $scope.distributions = false;
     $scope.ranking();
 
     $scope.meseAnnoPrecedente = function () {

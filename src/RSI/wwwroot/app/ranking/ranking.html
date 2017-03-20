@@ -16,7 +16,10 @@
                     </div>
                     <div ng-show="all" style="margin-top: 12px">
                         <label>
-                            Include Shorts: <input type="checkbox" ng-model="shorts" ng-change="ranking()" />
+                            Shorts: <input type="checkbox" ng-model="shorts" ng-change="ranking()" />
+                        </label>&nbsp;
+                        <label>
+                            Distributions: <input type="checkbox" ng-model="distributions" ng-change="ranking()" />
                         </label>
                     </div>
                 </div>
@@ -42,6 +45,7 @@
                 <th>TR 6M</th>
                 <th>TR 12M</th>
                 <th>Prezzo</th>
+                <th>D</th>
                 <th></th>
             </tr>
         </thead>
@@ -57,6 +61,7 @@
                 <td>{{etf.totRet6}}</td>
                 <td>{{etf.totRet12}}</td>
                 <td>{{etf.prezzo}}</td>
+                <td>{{etf.distribuzione}}</td>
                 <td>
                     <a ng-click="addToSelection(etf)" ng-show="all" class="btn btn-default">+</a>
                     <a ng-click="removeFromSelection(etf)" ng-show="selection" class="btn btn-default">-</a>

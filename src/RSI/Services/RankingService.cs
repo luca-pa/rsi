@@ -27,11 +27,11 @@ namespace RSI.Services
             };
         }
 
-        public Ranking GetAll(DateTime? dataRiferimento, bool getShorts, int minVolumes)
+        public Ranking GetAll(DateTime? dataRiferimento, bool getShorts, bool getDistributions, int minVolumes)
         {
             dataRiferimento = dataRiferimento ?? DateTime.Now;
 
-            var etfs = _rankingRepository.GetAll(dataRiferimento, getShorts);
+            var etfs = _rankingRepository.GetAll(dataRiferimento, getShorts, getDistributions);
 
             return new Ranking
             {

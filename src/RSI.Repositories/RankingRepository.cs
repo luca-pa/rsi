@@ -24,16 +24,17 @@ namespace RSI.Repositories
                     Isin = s.Etf.Isin,
                     Nome = s.Etf.Nome,
                     Etn = s.Etf.Etn,
+                    Distribuzione = s.Etf.Distribuzione,
                     Quote = s.Etf.Quote.Where(q => q.Ticker == s.Ticker).ToList(),
                     IsOwned = PortafoglioTickers(dataRiferimento).Contains(s.Ticker),
                     DataRiferimento = dataRiferimento.Value
                 });
         }
 
-        public IEnumerable<RankedEtf> GetAll(DateTime? dataRiferimento, bool getShorts)
+        public IEnumerable<RankedEtf> GetAll(DateTime? dataRiferimento, bool getShorts, bool getDistribution = false)
         {
             return _tradingContext.Etfs.Include(e => e.Quote)
-                .Where(e => e.Distribuzione == false)
+                .Where(e => getDistribution || e.Distribuzione == getDistribution)
                 .Where(e => e.Leveraged == false)
                 .Where(e => getShorts || e.Short == getShorts)
                 .Where(e => e.Quote.Count > 10)
@@ -43,6 +44,7 @@ namespace RSI.Repositories
                     Isin = e.Isin,
                     Nome = e.Nome,
                     Etn = e.Etn,
+                    Distribuzione = e.Distribuzione,
                     Quote = e.Quote,
                     IsOwned = PortafoglioTickers(dataRiferimento).Contains(e.Ticker),
                     DataRiferimento = dataRiferimento.Value

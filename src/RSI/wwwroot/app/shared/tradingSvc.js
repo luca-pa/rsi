@@ -5,8 +5,8 @@
             var url = 'api/ranking/' + this.getDataString(datarif);
             return $http.get(url);
         },
-        all: function (datarif, shorts) {
-            var url = 'api/allranking/' + this.getDataString(datarif) + '/' + shorts;
+        all: function (datarif, shorts, distributions) {
+            var url = 'api/allranking/' + this.getDataString(datarif) + '/' + shorts + '/' + distributions;
             return $http.get(url);
         },
         portfolio: function () {
