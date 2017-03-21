@@ -17,7 +17,6 @@
         $timeout(renderChart, 200);
     };
 
-
     $scope.savePortfolioItem = function (item) {
         console.log(item);
         tradingSvc.savePortfolioItem(item).then(function () {
@@ -72,8 +71,6 @@
             var times = _.union(['x'], data.times);
             var values = _.union(['%'], data.values);
 
-            $timeout(() => $scope.loadingChart = false, 500)
-
             c3.generate({
                 bindto: '#performance-chart',
                 data: {
@@ -97,6 +94,8 @@
                 },
                 type: 'spline'
             });
+
+            $timeout(() => $scope.loadingChart = false, 200)
         });
     };
 
