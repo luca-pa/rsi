@@ -10,6 +10,7 @@ namespace RSI.Repositories
         void AddPortafoglioItem(PortafoglioItem item);
         IQueryable<PortafoglioItem> GetPortafoglioItems(string ticker);
         IQueryable<PortafoglioItem> GetAllPortafoglioItems();
+        IEnumerable<StoricoItem> GetPerformance();
         void AggiornaBilancio(Bilancio bilancio);
         int AggiornaQuotePortafoglio(string ticker, List<QuotaPortafoglio> quote);
         void Save();

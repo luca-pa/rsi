@@ -2,6 +2,7 @@
 using RSI.Repositories;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace RSI.Services
 {
@@ -38,6 +39,11 @@ namespace RSI.Services
             );
 
             return portafoglio;
+        }
+
+        public IEnumerable<StoricoItem> GetStoricoPerformance()
+        {
+            return _portfolioRepository.GetPerformance();
         }
 
         public void AddPortafoglioItem(PortafoglioItem item)

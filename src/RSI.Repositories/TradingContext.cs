@@ -13,6 +13,7 @@ namespace RSI.Repositories
         public DbSet<Selezione> Selezione { get; set; }
         public DbSet<PortafoglioItem> PortafoglioItems { get; set; }
         public DbSet<Bilancio> Bilancio { get; set; }
+        public DbSet<StoricoItem> StoricoItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -82,6 +83,11 @@ namespace RSI.Repositories
             {
                 t.ToTable("Bilancio")
                     .HasKey("Data");
+            });
+
+            modelBuilder.Entity<StoricoItem>(t =>
+            {
+                t.HasKey(i => i.Data);
             });
 
         }

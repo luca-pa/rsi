@@ -1,4 +1,4 @@
-﻿tradingApp.controller('portfolioCtrl', ['$scope', 'tradingSvc', function ($scope, tradingSvc) {
+﻿tradingApp.controller('portfolioCtrl', ['$scope', '$timeout', 'tradingSvc', function ($scope, $timeout, tradingSvc) {
 
     $scope.load = function () {
         $scope.loading = true;
@@ -8,6 +8,9 @@
             $scope.tabellaTraderLinkUrl = tradingSvc.getTabellaTraderLinkUrl(data.items);
             $scope.loading = false;
         });
+    };
+    $scope.ShowChart = function () {
+        $timeout(renderChart, 1000);
     };
 
     $scope.load();
@@ -59,4 +62,41 @@
             quantita: ''
         };
     }
+
+    var renderChart = function () {
+
+        tradingSvc.portfolioPerformance().success(function (data) {
+
+            var times = _.union(['x'], data.times);
+            var values = _.union(['%'], data.values);
+
+            console.log(times);
+            console.log(values);
+
+            c3.generate({
+                bindto: '#performance-chart',
+                data: {
+                    x: 'x',
+                    columns: [times, values]
+                },
+                axis: {
+                    x: {
+                        type: 'timeseries',
+                        tick: {
+                            format: '%d-%m-%Y'
+                        }
+                    }
+                },
+                grid: {
+                    y: {
+                        lines: [
+                            {value: 0}
+                        ]
+                    }
+                },
+                type: 'spline'
+            });
+        });
+    };
+
 }]);

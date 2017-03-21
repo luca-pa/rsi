@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RSI.Services;
 using RSI.Models;
 using RSI.ViewModels;
+using System.Collections.Generic;
 
 namespace RSI.Controllers
 {
@@ -20,6 +21,12 @@ namespace RSI.Controllers
         {
             var portafoglio = _portfolioService.GetPortafoglio();
             return new PortafoglioViewModel(portafoglio);
+        }
+
+        [HttpGet("{storico}")]
+        public PortfolioChartData Get(bool storico = true)
+        {
+            return new PortfolioChartData(_portfolioService.GetStoricoPerformance());
         }
 
         [HttpPost]

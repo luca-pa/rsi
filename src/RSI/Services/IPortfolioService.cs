@@ -1,4 +1,5 @@
-﻿using RSI.Models;
+﻿using System.Collections.Generic;
+using RSI.Models;
 
 namespace RSI.Services
 {
@@ -9,5 +10,6 @@ namespace RSI.Services
         void AddPortafoglioItem(PortafoglioItem item);
         void AggiornaBilancio(Bilancio bilancio);
         int AggiornaQuotePortfolio();
+        IEnumerable<StoricoItem> GetStoricoPerformance();
     }
 }

@@ -10,6 +10,9 @@
         portfolio: function () {
             return $http.get('api/portfolio/');
         },
+        portfolioPerformance: function () {
+            return $http.get('api/portfolio/true');
+        },
         savePortfolioItem: function (item) {
             return $http.post('api/portfolio/', JSON.stringify(item), { contentType: "application/json" });
         },
@@ -20,7 +23,7 @@
             return $http.get('api/charts/');
         },
         updateQuotes: function () {
-            return $http.get('api/quotes/false');
+            return $http.get('api/quotes');
         },
         updateQuotesNextMonth: function () {
             return $http.get('api/quotes/true');
