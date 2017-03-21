@@ -28,7 +28,7 @@
         updateQuotesNextMonth: function () {
             return $http.get('api/quotes/true');
         },
-        UpdatePortfolioQuotes: function () {
+        updatePortfolioQuotes: function () {
             return $http.get('api/quotes/false/true');
         },
         removeFromSelection: function (ticker) {

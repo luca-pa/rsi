@@ -9,11 +9,14 @@
             $scope.loading = false;
         });
     };
-    $scope.ShowChart = function () {
-        $timeout(renderChart, 1000);
-    };
 
     $scope.load();
+
+    $scope.showChart = function () {
+        $scope.loadingChart = true;
+        $timeout(renderChart, 200);
+    };
+
 
     $scope.savePortfolioItem = function (item) {
         console.log(item);
@@ -21,8 +24,6 @@
             $scope.load();
         });
     };
-
-    $scope.newItem = getNewItem();
 
     $scope.addPortfolioItem = function () {
         console.log($scope.newItem);
@@ -45,16 +46,16 @@
         });
     };
 
-    $scope.UpdatePortfolioQuotes = function () {
-        $scope.loading = true;
+    $scope.updatePortfolioQuotes = function () {
+        $scope.loadingChart = true;
 
-        tradingSvc.UpdatePortfolioQuotes().success(function (data) {
-            $scope.load();
+        tradingSvc.updatePortfolioQuotes().success(function (data) {
             $scope.quoteAggiornate = ' (' + data + ')';
+            $scope.showChart();
         })
     };
 
-    function getNewItem() {
+    var getNewItem = function () {
         return {
             data: tradingSvc.getDataLocaleString(new Date()),
             ticker: '',
@@ -63,15 +64,15 @@
         };
     }
 
+    $scope.newItem = getNewItem();
+
     var renderChart = function () {
 
         tradingSvc.portfolioPerformance().success(function (data) {
-
             var times = _.union(['x'], data.times);
             var values = _.union(['%'], data.values);
 
-            console.log(times);
-            console.log(values);
+            $timeout(() => $scope.loadingChart = false, 500)
 
             c3.generate({
                 bindto: '#performance-chart',

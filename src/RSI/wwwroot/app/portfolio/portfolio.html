@@ -235,13 +235,19 @@
     <div class="row" ng-hide="loading">
         <div class="row">
             <div class="col-md-1 col-md-offset-1">
-                <a class="btn btn-default pull-right" ng-click="ShowChart()">Visualizza grafico</a>
+                <a class="btn btn-default pull-right" ng-click="showChart()">Visualizza grafico</a>
             </div>
             <div class="col-md-2">
-                <a class="btn btn-default pull-right" ng-click="UpdatePortfolioQuotes()">Aggiorna Storico{{quoteAggiornate}}</a>
+                <a class="btn btn-default pull-right" ng-click="updatePortfolioQuotes()">Aggiorna Storico{{quoteAggiornate}}</a>
             </div>
         </div>
-        <div class="row">
+        <div class="row" ng-show="loadingChart">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+                <img src="images/spinner.gif" />
+            </div>
+        </div>
+        <div class="row" ng-hide="loadingChart">
             <div id="performance-chart"></div>
         </div>
     </div>
