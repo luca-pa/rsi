@@ -7,7 +7,7 @@ namespace RSI.ViewModels
 {
     public class PortfolioChartData
     {
-        public IEnumerable<decimal> Values => orderedItems.Select(i => i.Value);
+        public IEnumerable<decimal> Values => orderedItems.Select(i => Math.Round(i.Value, 2));
         public IEnumerable<string> Times => orderedItems.Select(i => i.Data.ToString("yyyy-MM-dd"));
 
         private readonly IOrderedEnumerable<StoricoItem> orderedItems;

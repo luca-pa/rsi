@@ -95,16 +95,5 @@ namespace RSI.Repositories
 
             ) a join Bilancio b on b.Data = (select max(Data) from Bilancio where Data <= a.Data)
             order by a.Data";
-
-            //@"select a.Data, (valore-5-(Invested-Cash))/(Invested-Cash)*100 [Value]--, valore, Invested 
-            //from (
-            // select qp.Data, sum(Chiusura*Quantita) valore
-            // from QuotePortafoglio qp join Portafoglio p on qp.Ticker = p.Ticker
-            // where (qp.Data between p.Data and dateadd(DAY, -1, p.DataVendita))
-            // or (p.DataVendita is null and qp.Data >= p.Data)
-            // group by qp.Data
-            //) a 
-            //join Bilancio b on b.Data = (select max(Data) from Bilancio where Data <= a.Data)
-            //order by a.Data";
     }
 }
