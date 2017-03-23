@@ -38,7 +38,7 @@ namespace RSI.ViewModels
 
             for (var i = 13; i >= 1; i--)
             {
-                valuesList.Add(etf.Sma10Mesi(i).Value);
+                valuesList.Add(Math.Round(etf.Sma10Mesi(i).Value, 3));
             }
             return valuesList;
         }
