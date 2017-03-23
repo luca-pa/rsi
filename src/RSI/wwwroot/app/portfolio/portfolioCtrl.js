@@ -68,19 +68,24 @@
     var renderChart = function () {
 
         tradingSvc.portfolioPerformance().success(function (data) {
-            var times = _.union(['x'], data.times);
-            var values = _.union(['%'], data.values);
 
             c3.generate({
                 bindto: '#performance-chart',
                 data: {
-                    x: 'x',
-                    columns: [times, values]
+                    json: data,
+                    keys: {
+                        value: ['data', 'value']
+                    },
+                    x: 'data',
+                    names: {
+                        value: 'TR %'
+                    }
                 },
                 axis: {
                     x: {
                         type: 'timeseries',
                         tick: {
+                            //format: '%Y-%m-%d'
                             format: '%d-%m-%Y'
                         }
                     }
@@ -92,7 +97,9 @@
                         ]
                     }
                 },
-                type: 'spline'
+                point: {
+                    r: 2
+                }
             });
 
             $timeout(() => $scope.loadingChart = false, 200)

@@ -7,14 +7,13 @@ namespace RSI.ViewModels
 {
     public class PortfolioChartData
     {
-        public IEnumerable<decimal> Values => orderedItems.Select(i => Math.Round(i.Value, 2));
-        public IEnumerable<string> Times => orderedItems.Select(i => i.Data.ToString("yyyy-MM-dd"));
+        public string Data { get; set; }
+        public decimal Value { get; set; }
 
-        private readonly IOrderedEnumerable<StoricoItem> orderedItems;
-
-        public PortfolioChartData(IEnumerable<StoricoItem> items)
+        public PortfolioChartData(StoricoItem item)
         {
-            orderedItems = items.OrderBy(i => i.Data);
+            Data = item.Data.ToString("yyyy-MM-dd");
+            Value = Math.Round(item.Value, 2);
         }
     }
 }

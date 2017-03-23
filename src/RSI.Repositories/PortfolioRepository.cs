@@ -37,7 +37,6 @@ namespace RSI.Repositories
         public IEnumerable<StoricoItem> GetPerformance()
         {
             return _tradingContext.StoricoItems.FromSql(PerformanceQuery).ToList();
-            //return _tradingContext.StoricoItems.FromSql("dbo.PerformanceByDate").ToList();        
         }
 
             public void AddPortafoglioItem(PortafoglioItem item)

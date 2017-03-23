@@ -4,6 +4,7 @@ using RSI.Services;
 using RSI.Models;
 using RSI.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RSI.Controllers
 {
@@ -24,9 +25,9 @@ namespace RSI.Controllers
         }
 
         [HttpGet("{storico}")]
-        public PortfolioChartData Get(bool storico = true)
+        public IEnumerable<PortfolioChartData> Get(bool storico = true)
         {
-            return new PortfolioChartData(_portfolioService.GetStoricoPerformance());
+            return _portfolioService.GetStoricoPerformance().Select(item => new PortfolioChartData(item));
         }
 
         [HttpPost]
