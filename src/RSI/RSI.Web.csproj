@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\RSI.Services\RSI.Services.csproj" />
     <ProjectReference Include="..\RSI.Models\RSI.Models.csproj" />
     <ProjectReference Include="..\RSI.Repositories\RSI.Repositories.csproj" />
   </ItemGroup>

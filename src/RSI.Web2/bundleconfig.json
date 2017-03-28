@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "wwwroot/dist/modal.min.js",
+    "inputFiles": [
+      "wwwroot/dist/modal.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/dist/d3.v3.min.js",
+    "inputFiles": [
+      "wwwroot/dist/d3.v3.js"
+    ]
+  }
+]

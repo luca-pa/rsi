@@ -1,0 +1,19 @@
+<a class="btn btn-default" data-toggle="modal" data-target="#{{item.ticker}}-portfolio">...</a>
+
+<div id="{{item.ticker}}-portfolio" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h4 class="modal-title">{{item.ticker}} - {{item.nome}}</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <input class="btn btn-success" value="Salva" data-dismiss="modal" (click)="save()">
+                <a href="#" class="btn" data-dismiss="modal">Annulla</a>
+            </div>
+        </div>
+    </div>
+</div>

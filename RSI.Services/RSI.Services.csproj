@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\RSI.Models\RSI.Models.csproj" />
+    <ProjectReference Include="..\src\RSI.Repositories\RSI.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>

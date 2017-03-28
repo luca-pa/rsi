@@ -1,0 +1,70 @@
+<div class="container inner-component">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a (click)="ranking(dataPrecedente)" class="btn btn-default navbar-btn navbar-left"><< {{meseAnnoPrecedente()}}</a>
+                <p class="navbar-text">{{meseAnnoCorrente()}}</p>
+                <a (click)="ranking(dataSuccessiva)" class="btn btn-default navbar-btn navbar-left">{{meseAnnoSuccessivo()}} >></a>
+                <div class="navbar-right">
+                    <div *ngIf="!all">
+                        <a class="btn btn-default navbar-btn spaced-left" (click)="aggiornaQuote()">Aggiorna Quote{{quoteAggiornate}}</a>
+                        <a class="btn btn-default navbar-btn spaced-left" (click)="aggiornaQuoteMeseSuccessivo()">Aggiorna Quote Mese Pross.{{quoteAggiornateMeseSuccessivo}}</a>
+                        <a class="btn btn-info navbar-btn spaced-left" target="_blank" [href]="tabellaTraderLinkUrl">Tabella TraderLink</a>
+                    </div>
+                    <div *ngIf="all" style="margin-top: 12px">
+                        <label class="spaced-left">
+                            Shorts: <input type="checkbox" [(ngModel)]="shorts" (change)="ranking()" />
+                        </label>&nbsp;
+                        <label class="spaced-left">
+                            Distributions: <input type="checkbox" [(ngModel)]="distributions" (change)="ranking()" />
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="row" [hidden]="!loading">
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+            <img ng-show="loading" src="../images/spinner.gif" />
+        </div>
+    </div>
+    <table class="table table-bordered table-striped table-hover" [hidden]="loading">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Ticker</th>
+                <th>ETF</th>
+                <th>Avg 1/12M</th>
+                <th>Volumi</th>
+                <th>TR 1M</th>
+                <th>TR 3M</th>
+                <th>TR 6M</th>
+                <th>TR 12M</th>
+                <th>Prezzo</th>
+                <th>D</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let etf of etfs" class="{{etf.lineStyle}}">
+                <td>{{etf.posizione}}</td>
+                <td><a href="{{etf.url}}" target="_new">{{etf.ticker}}</a></td>
+                <td>{{etf.nome}}</td>
+                <td>{{etf.media}}</td>
+                <td>{{etf.volume}}</td>
+                <td>{{etf.totRet1}}</td>
+                <td>{{etf.totRet3}}</td>
+                <td>{{etf.totRet6}}</td>
+                <td>{{etf.totRet12}}</td>
+                <td>{{etf.prezzo}}</td>
+                <td>{{etf.distribuzione}}</td>
+                <td>
+                    <a (click)="addToSelection(etf)" *ngIf="all" class="btn btn-default">+</a>
+                    <a (click)="removeFromSelection(etf)" *ngIf="selection" class="btn btn-default">-</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

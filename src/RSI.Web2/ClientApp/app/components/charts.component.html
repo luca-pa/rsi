@@ -1,0 +1,14 @@
+<div class="container inner-component">
+    <div class="row" [hidden]="!loading">
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+            <img src="../images/spinner.gif" />
+        </div>
+    </div>
+
+    <div class="row" *ngFor="let etf of etfs" [hidden]="loading">
+        <div class="title" ng-click="renderChart(etf)"><h4>{{etf.name}}</h4></div>
+        <div id="chart-{{etf.ticker}}"></div>
+    </div>
+</div>
+

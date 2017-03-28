@@ -1,0 +1,19 @@
+.inner-component{
+    padding-top: 30px;
+}
+
+.nontradable, tr.nontradable a {
+    color: red;
+}
+
+.owned {
+    background-color: blanchedalmond !important;
+}
+
+.spaced-left {
+    margin-left: 10px;
+}
+
+.spaced-down {
+    margin-bottom: 30px;
+}

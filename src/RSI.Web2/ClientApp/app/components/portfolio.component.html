@@ -1,0 +1,91 @@
+<div class="container inner-component">
+
+    <div class="row spaced-down">
+        <div class="col-md-12">
+            <a class="btn btn-default pull-right spaced-left" (click)="load()">Aggiorna tempo reale</a>
+            <a class="btn btn-info pull-right spaced-left" target="_blank" href="{{tabellaTraderLinkUrl}}">Tabella TraderLink</a>
+            <a class="btn btn-default pull-right spaced-left" (click)="updatePortfolioQuotes()">Aggiorna Storico{{quoteAggiornate}}</a>
+            <a class="btn btn-default pull-right spaced-left" (click)="showChart()">Visualizza grafico</a>
+        </div>
+    </div>
+    <div class="row" [hidden]="!loading">
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+            <img src="../images/spinner.gif" />
+        </div>
+    </div>
+    <table class="table table-bordered table-striped table-hover" *ngIf="portfolio" [hidden]="loading">
+        <thead>
+            <tr>
+                <th colspan="3"></th>
+                <th>Qta</th>
+                <th>Pr. acq.</th>
+                <th>Imp. acq.</th>
+                <th>Pr. corr.</th>
+                <th>% d</th>
+                <th>Imp. corr.</th>
+                <th>Diff.</th>
+                <th>%</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of portfolio.items">
+                <td>{{item.data}}</td>
+                <td><a href="{{item.url}}" target="_new">{{item.ticker}}</a></td>
+                <td>{{item.nome}}</td>
+                <td class="rightalign">{{item.quantita}}</td>
+                <td class="rightalign">{{item.prezzoAcquisto}}</td>
+                <td class="rightalign">{{item.importoAcquisto}}</td>
+                <td class="rightalign">{{item.prezzoCorrente}}</td>
+                <td class="rightalign">{{item.variazione}}</td>
+                <td class="rightalign">{{item.importoCorrenteNetto}}</td>
+                <td class="rightalign">{{item.guadagno}}</td>
+                <td class="rightalign">{{item.guadagnoPercentuale}}</td>
+                <td>
+                    <edit-item [item]="item" (afterSave)="load()"></edit-item>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <a class="btn btn-default" data-toggle="modal" data-target="#newportfolio">+</a>
+                </td>
+                <td class="rightalign">{{portfolio.totaleAcquisto}}</td>
+                <td></td>
+                <td class="rightalign">{{portfolio.variazione}}</td>
+                <td class="rightalign">{{portfolio.totaleCorrente}}</td>
+                <td class="rightalign">{{portfolio.guadagno}}</td>
+                <td class="rightalign">{{portfolio.guadagnoPercentuale}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="12"></td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="3">Totale investito</td>
+                <td class="rightalign">{{portfolio.totaleInvestito}}</td>
+                <td colspan="2">(Cash: {{portfolio.cash}})</td>
+                <td class="rightalign">{{portfolio.totaleComplessivo}}</td>
+                <td class="rightalign">{{portfolio.guadagnoTotale}}</td>
+                <td class="rightalign">{{portfolio.guadagnoTotalePercentuale}}</td>
+                <td>
+                    <a class="btn btn-default" data-toggle="modal" data-target="#bilancio">...</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row" [hidden]="loading">
+        <div class="row" [hidden]="!loadingChart">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+                <img src="../images/spinner.gif" />
+            </div>
+        </div>
+        <div class="row" [hidden]="loadingChart">
+            <div id="performance-chart"></div>
+        </div>
+    </div>
+
+</div>
+
