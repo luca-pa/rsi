@@ -2,11 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { FormsModule } from '@angular/forms';
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { AppComponent } from './components/app.component'
 import { NavMenuComponent } from './components/navmenu.component';
 import { HomeComponent } from './components/home.component';
 import { PortfolioComponent } from './components/portfolio.component';
 import { EditItemComponent } from './components/edit-item.component';
+import { NewItemComponent } from './components/new-item.component';
+import { EditBilancioComponent } from './components/edit-bilancio.component';
 import { RankingComponent } from './components/ranking.component';
 import { AllRankingComponent } from './components/allranking.component';
 import { ChartsComponent } from './components/charts.component';
@@ -19,6 +23,8 @@ import { DateService } from './services/date.service';
         AppComponent,
         NavMenuComponent,
         EditItemComponent,
+        NewItemComponent,
+        EditBilancioComponent,
         PortfolioComponent,
         RankingComponent,
         AllRankingComponent,
@@ -29,6 +35,8 @@ import { DateService } from './services/date.service';
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         FormsModule,
+        ModalModule,
+        BootstrapModalModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },

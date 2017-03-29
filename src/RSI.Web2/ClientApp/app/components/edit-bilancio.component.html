@@ -2,39 +2,40 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <a class="close">×</a>
-                <h4 class="modal-title">{{item.ticker}} - {{item.nome}}</h4>
+                <h4 class="modal-title">Bilancio</h4>
             </div>
             <div class="modal-body">
-                <form id="{{item.ticker}}-form" class="form-horizontal">
-                    <div class="row">
-                        <div class="col-sm-2">{{item.data}}</div>
-                        <div class="col-sm-2">{{item.quantita}}</div>
-                        <div class="col-sm-2">{{item.prezzoAcquisto}}</div>
-                    </div>
-                    <br />
+                <form id="newitemform" class="form-horizontal">
                     <div class="row">
                         <div class="col-sm-3">
-                            <label for="datavendita" class="control-label">Data vendita</label>
+                            <label for="databilancio" class="control-label">Data</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="datavendita" class="input-sm form-control" [(ngModel)]="item.dataVendita">
+                            <input type="text" name="databilancio" class="input-sm form-control" [(ngModel)]="portfolio.dataBilancio">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <label for="prezzovendita" class="control-label">Prezzo vendita</label>
+                            <label for="investito" class="control-label">Investito</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="prezzovendita" class="input-sm form-control" [(ngModel)]="item.prezzoVendita">
+                            <input type="text" name="investito" class="input-sm form-control" [(ngModel)]="portfolio.totaleInvestito">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <label for="dividendi" class="control-label">Dividendi</label>
+                            <label for="cash" class="control-label">Cash</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="dividendi" class="input-sm form-control" [(ngModel)]="item.dividendi">
+                            <input type="text" name="cash" class="input-sm form-control" [(ngModel)]="portfolio.cash">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="minusvalenze" class="control-label">Minusvalenze</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" name="minusvalenze" class="input-sm form-control" [(ngModel)]="portfolio.minusvalenze">
                         </div>
                     </div>
                 </form>

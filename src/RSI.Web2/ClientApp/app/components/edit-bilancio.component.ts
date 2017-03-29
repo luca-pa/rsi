@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, Output} from '@angular/core';
-import { PortfolioItem } from '../models/portfolio-item';
+import { Portfolio } from '../models/portfolio';
 import { TradingService } from '../services/trading.service';
 
 @Component({
-    selector: 'edit-item',
-    templateUrl: './edit-item.component.html',
+    selector: 'edit-bilancio',
+    templateUrl: './edit-bilancio.component.html',
     styles: ['.modal { background: rgba(0,0,0,0.6); }']
 })
-export class EditItemComponent{
-    @Input() item: PortfolioItem;
+export class EditBilancioComponent{
+    @Input() portfolio: Portfolio;
     @Output() afterSave: EventEmitter<any> = new EventEmitter();
 
     public visible = false;
@@ -29,7 +29,14 @@ export class EditItemComponent{
     }
 
     save() {
-        this.service.savePortfolioItem(this.item).then(result => {
+        let bilancio = {
+            data: this.portfolio.dataBilancio,
+            invested: this.portfolio.totaleInvestito,
+            cash: this.portfolio.cash,
+            minusvalenze: this.portfolio.minusvalenze
+        };
+
+        this.service.saveBilancio(bilancio).then(result => {
             this.hide();
             this.afterSave.emit();
         });

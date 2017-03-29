@@ -3,38 +3,40 @@
         <div class="modal-content">
             <div class="modal-header">
                 <a class="close">×</a>
-                <h4 class="modal-title">{{item.ticker}} - {{item.nome}}</h4>
+                <h4 class="modal-title">Aggiungi nuovo titolo</h4>
             </div>
             <div class="modal-body">
-                <form id="{{item.ticker}}-form" class="form-horizontal">
-                    <div class="row">
-                        <div class="col-sm-2">{{item.data}}</div>
-                        <div class="col-sm-2">{{item.quantita}}</div>
-                        <div class="col-sm-2">{{item.prezzoAcquisto}}</div>
-                    </div>
-                    <br />
+                <form id="newitemform" class="form-horizontal">
                     <div class="row">
                         <div class="col-sm-3">
-                            <label for="datavendita" class="control-label">Data vendita</label>
+                            <label for="data" class="control-label">Data</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="datavendita" class="input-sm form-control" [(ngModel)]="item.dataVendita">
+                            <input type="text" name="data" class="input-sm form-control" [(ngModel)]="item.data">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <label for="prezzovendita" class="control-label">Prezzo vendita</label>
+                            <label for="ticker" class="control-label">Ticker</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="prezzovendita" class="input-sm form-control" [(ngModel)]="item.prezzoVendita">
+                            <input type="text" #ticker name="ticker" class="input-sm form-control" [(ngModel)]="item.ticker">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <label for="dividendi" class="control-label">Dividendi</label>
+                            <label for="prezzo" class="control-label">Prezzo</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" name="dividendi" class="input-sm form-control" [(ngModel)]="item.dividendi">
+                            <input type="text" name="prezzo" class="input-sm form-control" [(ngModel)]="item.prezzoAcquisto">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="quantita" class="control-label">Quantit&agrave;</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" name="quantita" class="input-sm form-control" [(ngModel)]="item.quantita">
                         </div>
                     </div>
                 </form>

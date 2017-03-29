@@ -43,12 +43,14 @@
                 <td class="rightalign">{{item.guadagno}}</td>
                 <td class="rightalign">{{item.guadagnoPercentuale}}</td>
                 <td>
+                    <a class="btn btn-default" (click)="showEditItem(item.ticker)">...</a>
                     <edit-item [item]="item" (afterSave)="load()"></edit-item>
                 </td>
             </tr>
             <tr>
                 <td colspan="5">
-                    <a class="btn btn-default" data-toggle="modal" data-target="#newportfolio">+</a>
+                    <a class="btn btn-default" (click)="showNewItem()">+</a>
+                    <new-item (afterSave)="load()"></new-item>
                 </td>
                 <td class="rightalign">{{portfolio.totaleAcquisto}}</td>
                 <td></td>
@@ -70,7 +72,8 @@
                 <td class="rightalign">{{portfolio.guadagnoTotale}}</td>
                 <td class="rightalign">{{portfolio.guadagnoTotalePercentuale}}</td>
                 <td>
-                    <a class="btn btn-default" data-toggle="modal" data-target="#bilancio">...</a>
+                    <a class="btn btn-default" (click)="showEditBilancio()">...</a>
+                    <edit-bilancio [portfolio]="portfolio" (afterSave)="load()"></edit-bilancio>
                 </td>
             </tr>
         </tbody>
@@ -86,6 +89,5 @@
             <div id="performance-chart"></div>
         </div>
     </div>
-
 </div>
 

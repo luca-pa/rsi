@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { Http } from '@angular/http';
+
+import { EditItemComponent } from './edit-item.component';
+import { NewItemComponent } from './new-item.component';
+import { EditBilancioComponent } from './edit-bilancio.component';
+
 import { Portfolio } from '../models/portfolio';
 import { PortfolioItem } from '../models/portfolio-item';
 import { TradingService } from '../services/trading.service';
@@ -11,6 +16,10 @@ declare var c3;
     styleUrls: ['./portfolio.component.css']
 })
 export class PortfolioComponent implements OnInit {
+    @ViewChildren(EditItemComponent) editItemComponents: QueryList<EditItemComponent>;
+    @ViewChild(NewItemComponent) newItemComponent: NewItemComponent;
+    @ViewChild(EditBilancioComponent) editBilancioComponent: EditBilancioComponent;
+
     public portfolio: Portfolio;
     public loading: boolean = true;
     public loadingChart: boolean = false;
@@ -33,6 +42,15 @@ export class PortfolioComponent implements OnInit {
             this.loading = false;
         })
 
+    }
+    showEditItem(ticker: string) {
+        this.editItemComponents.find(i => i.item.ticker == ticker).show();
+    }
+    showNewItem() {
+        this.newItemComponent.show();
+    }
+    showEditBilancio() {
+        this.editBilancioComponent.show();
     }
 
     updatePortfolioQuotes() {

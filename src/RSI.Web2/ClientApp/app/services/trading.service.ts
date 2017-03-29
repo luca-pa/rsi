@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Headers, Http, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 import { Portfolio } from '../models/portfolio';
@@ -39,31 +39,43 @@ export class TradingService {
     }
 
     savePortfolioItem(item) {
-        return this.http.post('api/portfolio/', JSON.stringify(item)).toPromise();
+        return this.http.post('api/portfolio/', JSON.stringify(item), this.options()).toPromise();
     }
+
     saveBilancio(bilancio) {
-        return this.http.post('api/bilancio', JSON.stringify(bilancio)).toPromise();
+        return this.http.post('api/bilancio', JSON.stringify(bilancio), this.options()).toPromise();
     }
+
     charts() {
         return this.http.get('api/charts/').toPromise();
     }
+
     updateQuotes() {
         return this.http.get('api/quotes')
             .toPromise()
             .then(response => response.json() as number);
     }
+
     updateQuotesNextMonth() {
         return this.http.get('api/quotes/true')
             .toPromise()
             .then(response => response.json() as number);
     }
+
     removeFromSelection(ticker) {
         return this.http.delete('api/ranking/' + ticker)
             .toPromise();
     }
+
     addToSelection(ticker) {
         return this.http.put('api/ranking/' + ticker, '').toPromise();
     }
+
+    private options() {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        return new RequestOptions({ headers: headers });
+    }
+
     getDataString(datarif?: Date): string {
         if (datarif !== null) {
             var month = datarif.getMonth() + 1;
@@ -72,6 +84,7 @@ export class TradingService {
         }
         return '';
     }
+
     getDataLocaleString(datarif) {
         if (datarif !== null) {
             var day = datarif.getDate();

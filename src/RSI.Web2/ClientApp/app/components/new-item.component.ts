@@ -3,12 +3,12 @@ import { PortfolioItem } from '../models/portfolio-item';
 import { TradingService } from '../services/trading.service';
 
 @Component({
-    selector: 'edit-item',
-    templateUrl: './edit-item.component.html',
+    selector: 'new-item',
+    templateUrl: './new-item.component.html',
     styles: ['.modal { background: rgba(0,0,0,0.6); }']
 })
-export class EditItemComponent{
-    @Input() item: PortfolioItem;
+export class NewItemComponent{
+    item: PortfolioItem = new PortfolioItem();
     @Output() afterSave: EventEmitter<any> = new EventEmitter();
 
     public visible = false;
@@ -17,7 +17,18 @@ export class EditItemComponent{
     constructor(private service: TradingService) {
     }
 
+    private getNewItem()
+    {
+        return new PortfolioItem ({
+            data: this.service.getDataLocaleString(new Date()),
+            ticker: '',
+            prezzoAcquisto: '',
+            quantita: ''
+        });
+    }
+
     public show(): void {
+        this.item = this.getNewItem();
         this.visible = true;
         setTimeout(() => this.visibleAnimate = true);
     }
