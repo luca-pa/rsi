@@ -13,7 +13,7 @@ namespace RSI.Models
         public bool Distribuzione { get; set; }
         public bool Etn { get; set; }
         public string Isin { get; set; }
-
+        public bool Active { get; set; }
 
         public ICollection<Quota> Quote { get; set; }
         public Selezione Selezione { get; set; }

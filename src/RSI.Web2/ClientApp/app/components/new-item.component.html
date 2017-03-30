@@ -1,4 +1,4 @@
-<div class="modal fade in" tabindex="-1" [ngClass]="{'in': visibleAnimate}" [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
+<div class="modal fade" tabindex="-1" [ngClass]="{'in': visibleAnimate}" [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,7 +20,7 @@
                             <label for="ticker" class="control-label">Ticker</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" #ticker name="ticker" class="input-sm form-control" [(ngModel)]="item.ticker">
+                            <input type="text" name="ticker" class="input-sm form-control" [(ngModel)]="item.ticker" autofocus>
                         </div>
                     </div>
                     <div class="row">
