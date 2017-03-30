@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RSI.Models;
 using RSI.Repositories;
 using System.Text;
+using RSI.Services;
 
 namespace ImportYahooFinance
 {
@@ -14,17 +15,16 @@ namespace ImportYahooFinance
         public static void Main(string[] args)
         {
             //var task = new Task(ImportData);
-            var task = new Task(ImportFromBorsaItaliana);
-            task.Start();
+            //task.Start();
+
             Console.WriteLine($"Started ...");
+            ImportFromBorsaItaliana();
 
             Console.ReadLine();
         }
 
-        public static async void ImportFromBorsaItaliana()
+        public static void ImportFromBorsaItaliana()
         {
-            var url = "http://charts.borsaitaliana.it/charts/services/ChartWService.asmx/GetPricesWithVolume";
-
             List<string> tickers = getTickers();
             //tickers = new List<string> { "BRES" };
             //tickers = tickers.Where(t => string.Compare(t, "LUSA") > 0).ToList();
@@ -33,29 +33,16 @@ namespace ImportYahooFinance
 
             foreach (var ticker in tickers)
             {
-                string responseData;
+                var quote = new BorsaItalianaService().GetDailyQuotes(ticker, "3m");
+                quote = GetEndOfMonthQuotes(quote);
 
-                using (HttpClient client = new HttpClient())
-                using (HttpResponseMessage response = await client.PostAsync(url, new StringContent(getRequestBody(ticker), Encoding.UTF8, "application/json")))
-                using (HttpContent content = response.Content)
-                {
-                    responseData = await content.ReadAsStringAsync();
-                }
-
-                if (responseData.Contains("Message"))
-                {
-                    Console.WriteLine($"{++index}  {ticker}: {responseData}");
-                    continue;
-                }
-
-                var quoteDaRete = getQuoteFromResponse(responseData, ticker);
-                if (quoteDaRete.Any())
+                if (quote.Any())
                 {
                     using (var context = new TradingContext())
                     {
                         var quoteEsistenti = context.Quote.Where(q => q.Ticker == ticker).ToList();
 
-                        foreach (var quota in quoteDaRete)
+                        foreach (var quota in quote)
                         {
                             var quotaEsistente = quoteEsistenti.SingleOrDefault(q => q.Data.ToString("MMyyyy") == quota.Data.ToString("MMyyyy"));
 
@@ -84,59 +71,26 @@ namespace ImportYahooFinance
             Console.WriteLine("Done!");
         }
 
-        private static List<Quota> getQuoteFromResponse(string responseData, string ticker)
+        private static List<Quota> GetEndOfMonthQuotes(List<Quota> quote)
         {
-            if (responseData == "{\"d\":[]}")
-            {
-                return new List<Quota>();
-            }
+            var endOfMonthQuotes = new List<Quota>();
 
-            responseData = responseData.Replace("{\"d\":[[", "").Replace("]]}", "");
-            var items = responseData.Split(new string[] { "],[" }, StringSplitOptions.None);
-
-            var quoteEtf = new List<Quota>();
-
-            foreach (var item in items)
-            {
-                if (!string.IsNullOrEmpty(item))
-                {
-                    var values = item.Split(',');
-                    quoteEtf.Add(new Quota()
-                    {
-                        Ticker = ticker,
-                        Data = FromTicks(values[0]),
-                        Chiusura = decimal.Parse(values[1].Replace(".", ",")),
-                        Volumi = int.Parse(values[6] == "null" ? "0" : values[6])
-                    });
-                }
-            }
-
-            var quote = new List<Quota>();
-
-            var quoteMese = quoteEtf.Where(q => q.Data.ToString("MMyyyy") == DateTime.Now.ToString("MMyyyy"));
+            var quoteMese = quote.Where(q => q.Data.ToString("MMyyyy") == DateTime.Now.ToString("MMyyyy"));
             var meseCorrente = quoteMese.OrderBy(q => q.Data).LastOrDefault();
             if (meseCorrente != null)
             {
                 meseCorrente.Volumi = (long)quoteMese.Average(q => q.Volumi);
-                quote.Add(meseCorrente);
+                endOfMonthQuotes.Add(meseCorrente);
             }
 
-            var quoteMesePrecedente = quoteEtf.Where(q => q.Data.ToString("MMyyyy") == DateTime.Now.AddMonths(-1).ToString("MMyyyy"));
+            var quoteMesePrecedente = quote.Where(q => q.Data.ToString("MMyyyy") == DateTime.Now.AddMonths(-1).ToString("MMyyyy"));
             var mesePrecedente = quoteMesePrecedente.OrderBy(q => q.Data).LastOrDefault();
             if (mesePrecedente != null)
             {
                 mesePrecedente.Volumi = (long)quoteMesePrecedente.Average(q => q.Volumi);
-                quote.Add(mesePrecedente);
+                endOfMonthQuotes.Add(mesePrecedente);
             }
-
-            return quote;
-        }
-
-        private static string getRequestBody(string ticker)
-        {
-            var bodyBefore = "{\"request\":{\"SampleTime\":\"1d\",\"TimeFrame\":\"3m\",\"RequestedDataSetType\":\"ohlc\",\"ChartPriceType\":\"price\",\"Key\":\"";
-            var bodyAfter = ".ETF\",\"OffSet\":0,\"FromDate\":null,\"ToDate\":null,\"UseDelay\":true,\"KeyType\":\"Topic\",\"KeyType2\":\"Topic\",\"Language\":\"it - IT\"}}";
-            return $"{bodyBefore}{ticker}{bodyAfter}";
+            return endOfMonthQuotes;
         }
 
         private static List<string> getTickers()
@@ -145,11 +99,6 @@ namespace ImportYahooFinance
             {
                 return context.Etfs.Where(e => e.Leveraged == false && e.Active == true).Select(e => e.Ticker).ToList();
             }
-        }
-
-        private static DateTime FromTicks(string ticks)
-        {
-            return new DateTime(1970, 1, 1).AddMilliseconds(double.Parse(ticks));
         }
 
         public static async void ImportData()

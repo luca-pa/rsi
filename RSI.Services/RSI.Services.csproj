@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\src\RSI.Models\RSI.Models.csproj" />
     <ProjectReference Include="..\src\RSI.Repositories\RSI.Repositories.csproj" />
   </ItemGroup>
