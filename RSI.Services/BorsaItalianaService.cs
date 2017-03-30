@@ -11,15 +11,15 @@ using Newtonsoft.Json;
 namespace RSI.Services
 {
 
-    public class BorsaItalianaService
+    public class BorsaItalianaService : IBorsaItalianaService
     {
         const string url = "http://charts.borsaitaliana.it/charts/services/ChartWService.asmx/GetPricesWithVolume";
 
-        public List<Quota> GetDailyQuotes(string ticker, string range = "3m")
+        public List<Quota> GetDailyQuotes(string ticker, string monthRange = "3m")
         {
             var quote = new List<Quota>();
 
-            string responseData = GetUrlContent(url, getRequestBody(ticker, range));
+            string responseData = GetUrlContent(url, getRequestBody(ticker, monthRange));
 
             if (responseData.Contains("Message"))
             {

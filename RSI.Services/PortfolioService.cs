@@ -11,9 +11,11 @@ namespace RSI.Services
         private readonly IYahooService _yahooService;
         private readonly ITraderLinkService _traderLinkService;
         private readonly IPortfolioRepository _portfolioRepository;
+        private readonly IBorsaItalianaService _borsaItalianaService;
 
-        public PortfolioService(IYahooService yahooService, ITraderLinkService traderLinkService, IPortfolioRepository portfolioRepository)
+        public PortfolioService(IBorsaItalianaService borsaItalianaService, IYahooService yahooService, ITraderLinkService traderLinkService, IPortfolioRepository portfolioRepository)
         {
+            _borsaItalianaService = borsaItalianaService;
             _traderLinkService = traderLinkService;
             _yahooService = yahooService;
             _portfolioRepository = portfolioRepository;
@@ -85,8 +87,13 @@ namespace RSI.Services
                 .ToList()
                 .ForEach(p =>
                 {
-                    var quote = _yahooService.GetQuotes(p.Ticker, p.Data, p.DataVendita ?? DateTime.Now.Date);
-                    counter += _portfolioRepository.AggiornaQuotePortafoglio(p.Ticker, quote);
+                    if (p.DataVendita == null || p.DataVendita > DateTime.Now.AddMonths(-1)) {
+                        var quote = _borsaItalianaService.GetDailyQuotes(p.Ticker, "1m")
+                                        .Where(q => q.Data >= p.Data && (p.DataVendita == null || q.Data <= p.DataVendita))
+                                        .Select(q => new QuotaPortafoglio { Ticker = q.Ticker, Data = q.Data, Chiusura = q.Chiusura })
+                                        .ToList();
+                        counter += _portfolioRepository.AggiornaQuotePortafoglio(p.Ticker, quote);
+                    }
                 });
 
             return counter;

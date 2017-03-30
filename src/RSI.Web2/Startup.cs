@@ -39,6 +39,7 @@ namespace RSI_Web2
             services.AddTransient<IPortfolioService, PortfolioService>();
             services.AddTransient<IYahooService, YahooService>();
             services.AddTransient<ITraderLinkService, TraderLinkService>();
+            services.AddTransient<IBorsaItalianaService, BorsaItalianaService>();
 
             services.AddTransient<IPortfolioRepository, PortfolioRepository>();
             services.AddTransient<IEtfRepository, EtfRepository>();

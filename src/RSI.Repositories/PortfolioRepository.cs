@@ -39,7 +39,7 @@ namespace RSI.Repositories
             return _tradingContext.StoricoItems.FromSql(PerformanceQuery).ToList();
         }
 
-            public void AddPortafoglioItem(PortafoglioItem item)
+        public void AddPortafoglioItem(PortafoglioItem item)
         {
             if (_tradingContext.Etfs.Any(e => e.Ticker == item.Ticker))
             {
@@ -63,10 +63,15 @@ namespace RSI.Repositories
 
         public int AggiornaQuotePortafoglio(string ticker, List<QuotaPortafoglio> quote)
         {
-            var quoteEsistenti = _tradingContext.QuotePortafoglio.Where(q => q.Ticker == ticker).ToList();
-            foreach(var quota in quote)
+            if (!quote.Any())
             {
-                if(!quoteEsistenti.Any(q=>q.Ticker==quota.Ticker && q.Data==quota.Data))
+                return 0;
+            }
+
+            var quoteEsistenti = _tradingContext.QuotePortafoglio.Where(q => q.Ticker == ticker).ToList();
+            foreach (var quota in quote)
+            {
+                if (!quoteEsistenti.Any(q => q.Ticker == quota.Ticker && q.Data == quota.Data))
                 {
                     _tradingContext.QuotePortafoglio.Add(quota);
                 }
