@@ -27,7 +27,7 @@ namespace ImportYahooFinance
 
             List<string> tickers = getTickers();
             //tickers = new List<string> { "BRES" };
-            tickers = tickers.Where(t => string.Compare(t, "LUSA") > 0).ToList();
+            //tickers = tickers.Where(t => string.Compare(t, "LUSA") > 0).ToList();
 
             int index = 0;
 
