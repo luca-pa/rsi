@@ -33,8 +33,7 @@ namespace RSI.Services
             }
 
             portafoglio.Items.ForEach(item =>
-                SetCurrentPrice(
-                    item,
+                item.SetCurrentPrice(
                     quote.SingleOrDefault(q => q.Ticker == item.Ticker),
                     quotePrecedenti.SingleOrDefault(q => q.Ticker == item.Ticker)?.ChiusuraPrecedente
                 )
@@ -73,10 +72,12 @@ namespace RSI.Services
 
         public void AggiornaBilancio(Bilancio bilancio)
         {
-            if (bilancio != null)
+            if (bilancio == null)
             {
-                _portfolioRepository.AggiornaBilancio(bilancio);
+                return;
             }
+
+            _portfolioRepository.AggiornaBilancio(bilancio);
         }
 
         public int AggiornaQuotePortfolio()
@@ -88,7 +89,7 @@ namespace RSI.Services
                 .ForEach(p =>
                 {
                     if (p.DataVendita == null || p.DataVendita > DateTime.Now.AddMonths(-1)) {
-                        var quote = _borsaItalianaService.GetDailyQuotes(p.Ticker, "1m")
+                        var quote = _borsaItalianaService.GetDailyQuotesLastMonth(p.Ticker)
                                         .Where(q => q.Data >= p.Data && (p.DataVendita == null || q.Data <= p.DataVendita))
                                         .Select(q => new QuotaPortafoglio { Ticker = q.Ticker, Data = q.Data, Chiusura = q.Chiusura })
                                         .ToList();
@@ -97,26 +98,6 @@ namespace RSI.Services
                 });
 
             return counter;
-        }
-
-
-        void SetCurrentPrice(PortafoglioItem item, Quota quota, decimal? chiusuraPrecedente)
-        {
-            if (quota == null)
-                return;
-
-            item.PrezzoCorrente = quota.Chiusura;
-            if (string.IsNullOrEmpty(quota.Variazione))
-            {
-                if (chiusuraPrecedente.HasValue)
-                {
-                    item.Variazione = ((quota.Chiusura - chiusuraPrecedente) / chiusuraPrecedente).Value.ToString("P2");
-                }
-            }
-            else
-            {
-                item.Variazione = quota.Variazione;
-            }
         }
     }
 

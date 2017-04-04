@@ -33,7 +33,7 @@ namespace ImportYahooFinance
 
             foreach (var ticker in tickers)
             {
-                var quote = new BorsaItalianaService().GetDailyQuotes(ticker, "3m");
+                var quote = new BorsaItalianaService().GetDailyQuotesLastThreeMonths(ticker);
                 quote = GetEndOfMonthQuotes(quote);
 
                 if (quote.Any())

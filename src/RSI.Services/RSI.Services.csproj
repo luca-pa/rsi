@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\RSI.Models\RSI.Models.csproj" />
-    <ProjectReference Include="..\src\RSI.Repositories\RSI.Repositories.csproj" />
+    <ProjectReference Include="..\RSI.Models\RSI.Models.csproj" />
+    <ProjectReference Include="..\RSI.Repositories\RSI.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

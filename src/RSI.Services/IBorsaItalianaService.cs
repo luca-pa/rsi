@@ -6,6 +6,7 @@ namespace RSI.Services
 
     public interface IBorsaItalianaService
     {
-        List<Quota> GetDailyQuotes(string ticker, string range);
+        List<Quota> GetDailyQuotesLastMonth(string ticker);
+        List<Quota> GetDailyQuotesLastThreeMonths(string ticker);
     }
 }

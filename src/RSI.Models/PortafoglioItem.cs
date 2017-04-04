@@ -23,6 +23,27 @@ namespace RSI.Models
         public decimal ImportoCorrenteNetto => (Quantita * PrezzoCorrente) - Tax - Commissione;
 
         public Etf Etf { get; set; }
+
+
+        public void SetCurrentPrice(Quota quota, decimal? chiusuraPrecedente)
+        {
+            if (quota == null)
+                return;
+
+            this.PrezzoCorrente = quota.Chiusura;
+            if (string.IsNullOrEmpty(quota.Variazione))
+            {
+                if (chiusuraPrecedente.HasValue)
+                {
+                    this.Variazione = ((quota.Chiusura - chiusuraPrecedente) / chiusuraPrecedente).Value.ToString("P2");
+                }
+            }
+            else
+            {
+                this.Variazione = quota.Variazione;
+            }
+        }
+
     }
 
 }

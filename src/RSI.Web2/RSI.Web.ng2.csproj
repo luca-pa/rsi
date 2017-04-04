@@ -38,9 +38,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\RSI.Services\RSI.Services.csproj" />
     <ProjectReference Include="..\RSI.Models\RSI.Models.csproj" />
     <ProjectReference Include="..\RSI.Repositories\RSI.Repositories.csproj" />
+    <ProjectReference Include="..\RSI.Services\RSI.Services.csproj" />
   </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->

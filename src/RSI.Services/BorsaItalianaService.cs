@@ -10,12 +10,27 @@ using Newtonsoft.Json;
 
 namespace RSI.Services
 {
-
     public class BorsaItalianaService : IBorsaItalianaService
     {
         const string url = "http://charts.borsaitaliana.it/charts/services/ChartWService.asmx/GetPricesWithVolume";
 
-        public List<Quota> GetDailyQuotes(string ticker, string monthRange = "3m")
+        public List<Quota> GetDailyQuotesLastMonth(string ticker)
+        {
+            return GetDailyQuotes(ticker, "1m");
+        }
+
+        public List<Quota> GetDailyQuotesLastThreeMonths(string ticker)
+        {
+            return GetDailyQuotes(ticker, "3m");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ticker"></param>
+        /// <param name="monthRange">"1m", "3m"</param>
+        /// <returns></returns>
+        private List<Quota> GetDailyQuotes(string ticker, string monthRange)
         {
             var quote = new List<Quota>();
 

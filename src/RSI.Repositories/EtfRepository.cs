@@ -43,6 +43,12 @@ namespace RSI.Repositories
             var meseCorrente = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             var meseProssimo = meseCorrente.AddMonths(1).SetFirstWorkingDay();
 
+            if (DateTime.Now < DateTime.Now.SetFirstWorkingDay())
+            {
+                meseProssimo = meseCorrente.SetFirstWorkingDay();
+                meseCorrente = meseCorrente.AddMonths(-1);
+            }
+
             var quoteToAddOrUpdate = _tradingContext.Quote
                 .Where(q => q.Data.ToString("MMyyyy") == meseCorrente.ToString("MMyyyy"))
                 .Select(q => new Quota

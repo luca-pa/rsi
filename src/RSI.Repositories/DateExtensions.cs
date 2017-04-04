@@ -25,7 +25,7 @@ namespace RSI.Repositories
 
         public static bool IsHoliday(this DateTime data)
         {
-            var holidays = new List<string> { "0101", "0104", "0206", "0111" };
+            var holidays = new List<string> { "0101", "0105", "0206", "0111" };
 
             return holidays.Contains(data.ToString("ddMM"));
         }
