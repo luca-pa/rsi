@@ -21,8 +21,8 @@ export class PortfolioComponent implements OnInit {
     @ViewChild(EditBilancioComponent) editBilancioComponent: EditBilancioComponent;
 
     public portfolio: Portfolio;
-    public loading: boolean = true;
-    public loadingChart: boolean = false;
+    public loading: boolean;
+    public loadingChart: boolean;
     public tabellaTraderLinkUrl: string;
     public quoteAggiornate: string;
 
