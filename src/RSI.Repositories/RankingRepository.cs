@@ -31,9 +31,15 @@ namespace RSI.Repositories
                 });
         }
 
-        public IEnumerable<RankedEtf> GetAll(DateTime? dataRiferimento, bool getShorts, bool getDistribution = false)
+        public IEnumerable<RankedEtf> GetAllEtcs(DateTime? dataRiferimento, bool getShorts, bool getDistribution = false)
+        {
+            return GetAll(dataRiferimento, getShorts, getDistribution, onlyEtcs: true);
+        }
+
+        public IEnumerable<RankedEtf> GetAll(DateTime? dataRiferimento, bool getShorts, bool getDistribution = false, bool onlyEtcs = false)
         {
             return _tradingContext.Etfs.Include(e => e.Quote)
+                .Where(e => onlyEtcs == false || e.Etn)
                 .Where(e => getDistribution || e.Distribuzione == getDistribution)
                 .Where(e => e.Leveraged == false)
                 .Where(e => getShorts || e.Short == getShorts)

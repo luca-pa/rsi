@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
-    <AssemblyName>ImportYahooFinance</AssemblyName>
+    <AssemblyName>ImportQuote</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>ImportYahooFinance</PackageId>
     <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
@@ -11,6 +11,7 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <RootNamespace>ImportQuote</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

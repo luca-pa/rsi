@@ -8,7 +8,7 @@ using RSI.Repositories;
 using System.Text;
 using RSI.Services;
 
-namespace ImportYahooFinance
+namespace ImportQuote
 {
     public class Program
     {
@@ -18,16 +18,14 @@ namespace ImportYahooFinance
             //task.Start();
 
             Console.WriteLine($"Started ...");
-            ImportFromBorsaItaliana();
+            ImportFromBorsaItaliana(args.Count() > 0 ? args[0] : "");
 
             Console.ReadLine();
         }
 
-        public static void ImportFromBorsaItaliana()
+        public static void ImportFromBorsaItaliana(string startFrom)
         {
-            List<string> tickers = getTickers();
-            //tickers = new List<string> { "BRES" };
-            //tickers = tickers.Where(t => string.Compare(t, "LUSA") > 0).ToList();
+            List<string> tickers = getTickers(startFrom);
 
             int index = 0;
 
@@ -93,11 +91,18 @@ namespace ImportYahooFinance
             return endOfMonthQuotes;
         }
 
-        private static List<string> getTickers()
+        private static List<string> getTickers(string startFrom)
         {
             using (var context = new TradingContext())
             {
-                return context.Etfs.Where(e => e.Leveraged == false && e.Active == true).Select(e => e.Ticker).ToList();
+                var etfs =  context.Etfs.Where(e => e.Leveraged == false && e.Active == true);
+
+                if (!string.IsNullOrEmpty(startFrom))
+                {
+                    etfs = etfs.Where(etf => string.Compare(etf.Ticker, startFrom) > 0);
+                }
+
+                return etfs.Select(e => e.Ticker).ToList();
             }
         }
 

@@ -21,6 +21,7 @@ export class AllRankingComponent implements OnInit {
     quoteAggiornateMeseSuccessivo: string;
     shorts: boolean;
     distributions: boolean;
+    onlyEtcs: boolean;
 
     constructor(private service: TradingService, private dateService: DateService) {
     }
@@ -35,7 +36,7 @@ export class AllRankingComponent implements OnInit {
         if (datarif == null) {
             datarif = this.dateService.addMonths(new Date(), 1);
         }
-        this.service.all(datarif, this.shorts, this.distributions).then(result => {
+        this.service.all(datarif, this.shorts, this.distributions, this.onlyEtcs).then(result => {
             this.etfs = result;
             this.dataRif = datarif;
             this.dataPrecedente = this.dateService.addMonths(datarif, -1);

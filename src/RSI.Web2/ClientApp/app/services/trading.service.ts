@@ -16,8 +16,12 @@ export class TradingService {
             .then(response => response.json() as Etf[]);
     }
 
-    all(datarif: Date, shorts: boolean, distributions: boolean): Promise<Etf[]> {
-        return this.http.get('api/allranking/' + this.getDataString(datarif) + '/' + shorts + '/' + distributions)
+    all(datarif: Date, shorts: boolean, distributions: boolean, onlyEtcs: boolean): Promise<Etf[]> {
+        let baseUrl = 'api/allranking/';
+        if (onlyEtcs)
+            baseUrl += 'etcs/';
+
+        return this.http.get(baseUrl + this.getDataString(datarif) + '/' + shorts + '/' + distributions)
             .toPromise()
             .then(response => response.json() as Etf[]);
     }

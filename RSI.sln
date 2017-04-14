@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSI.Web", "src\RSI\RSI.Web.csproj", "{4B386CE0-B749-4FDC-A592-99F6D00EE292}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImportYahooFinance", "src\ImportYahooFinance\ImportYahooFinance.csproj", "{190CEA60-3E40-46A3-9780-F7916AA4B4B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImportQuote", "src\ImportYahooFinance\ImportQuote.csproj", "{190CEA60-3E40-46A3-9780-F7916AA4B4B3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSI.Models", "src\RSI.Models\RSI.Models.csproj", "{3FE5F9A2-3440-4E98-AAE4-231A7CD374DC}"
 EndProject

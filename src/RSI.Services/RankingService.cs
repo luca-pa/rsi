@@ -1,6 +1,7 @@
 ﻿using RSI.Models;
 using RSI.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RSI.Services
@@ -29,9 +30,19 @@ namespace RSI.Services
 
         public Ranking GetAll(DateTime? dataRiferimento, bool getShorts, bool getDistributions, int minVolumes)
         {
+            return GetAllInternal(_rankingRepository.GetAll, ref dataRiferimento, getShorts, getDistributions, minVolumes, onlyEtcs: false);
+        }
+
+        public Ranking GetAllEtcs(DateTime? dataRiferimento, bool getShorts, bool getDistributions, int minVolumes)
+        {
+            return GetAllInternal(_rankingRepository.GetAll, ref dataRiferimento, getShorts, getDistributions, minVolumes, onlyEtcs: true);
+        }
+
+        private Ranking GetAllInternal(Func<DateTime?, bool, bool, bool, IEnumerable<RankedEtf>> func, ref DateTime? dataRiferimento, bool getShorts, bool getDistributions, int minVolumes, bool onlyEtcs)
+        {
             dataRiferimento = dataRiferimento ?? DateTime.Now;
 
-            var etfs = _rankingRepository.GetAll(dataRiferimento, getShorts, getDistributions);
+            var etfs = func(dataRiferimento, getShorts, getDistributions, onlyEtcs);
 
             return new Ranking
             {

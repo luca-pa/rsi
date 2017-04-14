@@ -21,12 +21,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ClientApp\app\images\spinner.gif" />
-    <Content Include="ClientApp\app\services\date.service.ts">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ClientApp\app\services\trading.service.ts">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="wwwroot\dist\c3.min.css">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

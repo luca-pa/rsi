@@ -29,11 +29,23 @@ namespace RSI.Controllers
             return Get(DateTime.Now, false, false);
         }
 
+        [HttpGet("etcs/{data}/{shorts}/{distributions}")]
+        public IEnumerable<EtfDisplay> GetEtcs(DateTime data, bool shorts, bool distributions)
+        {
+            return GetAll(data, shorts, distributions, onlyEtcs: true);
+        }
+
         [HttpGet("{data}/{shorts}/{distributions}")]
         public IEnumerable<EtfDisplay> Get(DateTime data, bool shorts, bool distributions)
         {
+            return GetAll(data, shorts, distributions);
+        }
+
+        private IEnumerable<EtfDisplay> GetAll(DateTime data, bool shorts, bool distributions, bool onlyEtcs = false)
+        {
             int index = 0;
-            var ranking = _rankingService.GetAll(data, shorts, distributions);
+            var ranking = onlyEtcs ? _rankingService.GetAllEtcs(data, shorts, distributions) :
+                                     _rankingService.GetAll(data, shorts, distributions);
             return ranking.Etfs
                 .OrderByDescending(e => e.MediaTotRet)
                 .Select(e => new EtfDisplay(++index, e));
