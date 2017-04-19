@@ -13,8 +13,10 @@ namespace RSI.Services
         bool IsMarketOpen => (
             DateTime.Now.TimeOfDay > new TimeSpan(9, 0, 0) &&
             DateTime.Now.TimeOfDay < new TimeSpan(17, 36, 0) &&
-            !(new[] { DayOfWeek.Saturday, DayOfWeek.Sunday }.Contains(DateTime.Now.DayOfWeek))
+            !IsWeekend
             );
+
+        private bool IsWeekend => new[] { DayOfWeek.Saturday, DayOfWeek.Sunday }.Contains(DateTime.Now.DayOfWeek);
 
         public bool IsServiceAvailable() { return (DateTime.Now.TimeOfDay > new TimeSpan(9, 0, 0)); }
 
@@ -36,15 +38,19 @@ namespace RSI.Services
 
                 foreach (var etf in etfs)
                 {
-                    var etfline = htmlString.Substring(htmlString.IndexOf($"&tlv={etf.Isin}&", StringComparison.Ordinal));
+                    var startIndex = htmlString.IndexOf($"&tlv={etf.Isin}&", StringComparison.Ordinal);
+                    if (startIndex == -1)
+                        continue;
+
+                    var etfline = htmlString.Substring(startIndex);
                     etfline = etfline.Substring(0, etfline.IndexOf("</tr>", StringComparison.Ordinal));
 
-                    var regex = new Regex($"&tlv={etf.Isin}&.+</a></td><td><b>([0-9,]+)</b></td>.+<font.+>(.+)</font>.+<td.+>[0-9:]{{8}}</td><td>([0-9,]+)</td>", RegexOptions.IgnoreCase);
+                    var regex = new Regex($"&tlv={etf.Isin}&.+</a></td><td><b>([0-9,]+)</b></td>.+<font.+>(.+)</font>.+<td.+>[0-9:]{{8}}</td><td>([0-9,.]+)</td>", RegexOptions.IgnoreCase);
                     var match = regex.Match(etfline);
 
                     if (match.Success)
                     {
-                        var value = IsMarketOpen ? match.Groups[3].Value : match.Groups[1].Value;
+                        var value = IsMarketOpen && match.Groups[3].Value != "0.00" ? match.Groups[3].Value : match.Groups[1].Value;
                         var variazione = IsMarketOpen ? "" : match.Groups[2].Value.Trim();
 
                         decimal chiusura;

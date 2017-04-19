@@ -71,6 +71,7 @@ namespace RSI.Repositories
                     .HasColumnName("Ticker");
                 t.Ignore(s => s.PrezzoCorrente);
                 t.Ignore(s => s.Variazione);
+                t.Ignore(s => s.UltimaChiusura);
             });
 
             modelBuilder.Entity<QuotaPortafoglio>(t =>

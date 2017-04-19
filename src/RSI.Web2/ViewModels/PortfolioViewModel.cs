@@ -59,7 +59,7 @@ namespace RSI.ViewModels
             Minusvalenze = portafoglio.Bilancio.Minusvalenze.ToString("N2");
             DataBilancio = DateTime.Now.ToString("dd/MM/yyyy");
 
-            var variazioni = portafoglio.Items.Select(i => decimal.Parse(i.Variazione.Replace("%", "")));
+            var variazioni = portafoglio.Items.Select(i => string.IsNullOrEmpty(i.Variazione) ? 0 : decimal.Parse(i.Variazione.Replace("%", "")));
             Variazione = variazioni.Any() ? $"{variazioni.Average().ToString("N2")}%" : "";
         }
 

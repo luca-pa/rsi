@@ -28,10 +28,11 @@ namespace ImportQuote
             List<string> tickers = getTickers(startFrom);
 
             int index = 0;
+            var borsaItalianaService = new BorsaItalianaService();
 
             foreach (var ticker in tickers)
             {
-                var quote = new BorsaItalianaService().GetDailyQuotesLastThreeMonths(ticker);
+                var quote = borsaItalianaService.GetDailyQuotesLastThreeMonths(ticker);
                 quote = GetEndOfMonthQuotes(quote);
 
                 if (quote.Any())
@@ -66,6 +67,16 @@ namespace ImportQuote
                 }
             }
 
+            using (var context = new TradingContext())
+            {
+                var etfService = new EtfService(null, new EtfRepository(context));
+                var counter = etfService.AggiornaQuoteMeseSuccessivo();
+                Console.WriteLine($"Quote mese successivo: {counter} record(s) affected");
+
+                var portfolioService = new PortfolioService(borsaItalianaService, null, null, new PortfolioRepository(context));
+                counter = portfolioService.AggiornaQuotePortfolio();
+                Console.WriteLine($"Quote portafoglio: {counter} record(s) affected");
+            }
             Console.WriteLine("Done!");
         }
 

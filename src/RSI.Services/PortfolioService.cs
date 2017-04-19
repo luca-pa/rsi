@@ -24,18 +24,11 @@ namespace RSI.Services
         public Portafoglio GetPortafoglio()
         {
             var portafoglio = _portfolioRepository.GetPortafoglio();
-            var quote = _yahooService.GetCurrentQuotes(portafoglio.Items.Select(i => i.Ticker));
-            var quotePrecedenti = quote.Select(q => new { q.Ticker, q.ChiusuraPrecedente });
-
-            if (_traderLinkService.IsServiceAvailable())
-            {
-                quote = _traderLinkService.GetCurrentQuotes(portafoglio.Items.Select(i => i.Etf).ToList());
-            }
+            var quote = _traderLinkService.GetCurrentQuotes(portafoglio.Items.Select(i => i.Etf).ToList());
 
             portafoglio.Items.ForEach(item =>
                 item.SetCurrentPrice(
-                    quote.SingleOrDefault(q => q.Ticker == item.Ticker),
-                    quotePrecedenti.SingleOrDefault(q => q.Ticker == item.Ticker)?.ChiusuraPrecedente
+                    quote.SingleOrDefault(q => q.Ticker == item.Ticker)
                 )
             );
 
@@ -88,7 +81,8 @@ namespace RSI.Services
                 .ToList()
                 .ForEach(p =>
                 {
-                    if (p.DataVendita == null || p.DataVendita > DateTime.Now.AddMonths(-1)) {
+                    if (p.DataVendita == null || p.DataVendita > DateTime.Now.AddMonths(-1))
+                    {
                         var quote = _borsaItalianaService.GetDailyQuotesLastMonth(p.Ticker)
                                         .Where(q => q.Data >= p.Data && (p.DataVendita == null || q.Data <= p.DataVendita))
                                         .Select(q => new QuotaPortafoglio { Ticker = q.Ticker, Data = q.Data, Chiusura = q.Chiusura })

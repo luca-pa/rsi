@@ -17,9 +17,20 @@ namespace RSI.Repositories
 
         public Portafoglio GetPortafoglio()
         {
+            var items = _tradingContext.PortafoglioItems
+                .Where(i => i.DataVendita.HasValue == false)
+                .Include(p => p.Etf)
+                .ToList();
+
+            items.ForEach(i =>
+            {
+                var quota = _tradingContext.QuotePortafoglio.Where(q => q.Ticker == i.Ticker).OrderBy(q => q.Data).LastOrDefault();
+                i.UltimaChiusura = quota?.Chiusura;
+            });
+
             return new Portafoglio
             {
-                Items = _tradingContext.PortafoglioItems.Where(i => i.DataVendita.HasValue == false).Include(p => p.Etf).ToList(),
+                Items = items,
                 Bilancio = _tradingContext.Bilancio.OrderByDescending(b => b.Data).FirstOrDefault()
             };
         }
