@@ -49,13 +49,17 @@ namespace RSI.Services
                 if (item != null)
                 {
                     var values = item.Split(',');
-                    quote.Add(new Quota()
+
+                    if (values.Count() > 1)
                     {
-                        Ticker = ticker,
-                        Data = FromTicks(values[0]),
-                        Chiusura = decimal.Parse(values[1].Replace(".", ",")),
-                        Volumi = int.Parse(values[6] == "null" ? "0" : values[6])
-                    });
+                        quote.Add(new Quota()
+                        {
+                            Ticker = ticker,
+                            Data = FromTicks(values[0]),
+                            Chiusura = decimal.Parse(values[1].Replace(".", ",")),
+                            Volumi = int.Parse(values[6] == "null" ? "0" : values[6])
+                        });
+                    }
                 }
             }
             return quote;
