@@ -99,12 +99,20 @@ namespace RSI.Repositories
             @"select a.Data, (valore-(Invested-Cash))/(Invested-Cash)*100 [Value]
             from (
 
-	            select Data, sum(iif(valore > prezzo, valore-((valore-prezzo)*26/100), valore)-5) [valore]
+	            select Data, sum(valore) [valore]
 	            from (
-		            select qp.Data, Chiusura*Quantita valore, p.Prezzo*Quantita prezzo
-		            from QuotePortafoglio qp join Portafoglio p on qp.Ticker = p.Ticker
-		            where (qp.Data between p.Data and dateadd(DAY, -1, p.DataVendita))
-		            or (p.DataVendita is null and qp.Data >= p.Data)
+		            select Data, (valore - tasse - commissione) [valore]
+		            from (
+			            select Data, valore, iif(valore > prezzo and etn = 0, (valore-prezzo)*26/100, 0) tasse, 5 commissione
+			            from (
+				            select qp.Data, Chiusura*Quantita valore, p.Prezzo*Quantita prezzo, Etn
+				            from QuotePortafoglio qp 
+				            join Portafoglio p on qp.Ticker = p.Ticker
+				            join ETFs e on e.Ticker = p.Ticker
+				            where (qp.Data between p.Data and dateadd(DAY, -1, p.DataVendita))
+				            or (p.DataVendita is null and qp.Data >= p.Data)
+			            ) t3
+		            ) t2
 	            ) t1
 	            group by Data
 
